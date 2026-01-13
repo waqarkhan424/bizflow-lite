@@ -1,20 +1,11 @@
 "use server";
 
+
 import { prisma } from "@/lib/prisma";
 import bcrypt from "bcryptjs";
-import { z } from "zod";
+import { registerSchema, type RegisterState } from "../schemas/registerSchema";
 
-export const registerSchema = z.object({
-    
-  name: z.string().trim().min(2, "Name must be at least 2 characters").optional().or(z.literal("")),
-  email: z.string().trim().email("Invalid email"),
-  password: z.string().min(6, "Password must be at least 6 characters"),
-});
 
-export type RegisterState = {
-  ok: boolean;
-  message: string;
-};
 
 export async function auth_register(prevState: RegisterState,formData: FormData): Promise<RegisterState> {
 
