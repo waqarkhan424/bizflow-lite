@@ -1,4 +1,9 @@
+"use client";
+
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
+import { Label } from "@/components/ui/label";
+import { Input } from "@/components/ui/input";
+import { Button } from "@/components/ui/button";
 
 export default function LoginPage() {
   return (
@@ -7,10 +12,35 @@ export default function LoginPage() {
         <CardHeader>
           <CardTitle>Login</CardTitle>
         </CardHeader>
+
         <CardContent>
-          <p className="text-sm text-muted-foreground">
-            Next step: we will add the form + server action.
-          </p>
+          <form className="space-y-4">
+            <div className="space-y-2">
+              <Label htmlFor="email">Email</Label>
+              <Input
+                id="email"
+                name="email"
+                type="email"
+                placeholder="waqar@gmail.com"
+                required
+              />
+            </div>
+
+            <div className="space-y-2">
+              <Label htmlFor="password">Password</Label>
+              <Input
+                id="password"
+                name="password"
+                type="password"
+                placeholder="••••••••"
+                required
+              />
+            </div>
+
+            <Button type="submit" className="w-full">
+              Login
+            </Button>
+          </form>
         </CardContent>
       </Card>
     </div>
