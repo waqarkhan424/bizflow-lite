@@ -1,7 +1,10 @@
 "use client";
 
 import { useActionState } from "react";
-import { auth_register, type RegisterState } from "../actions/auth_register";
+
+import { auth_register } from "../actions/auth_register";
+import type { RegisterState } from "../schemas/registerSchema";
+
 
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Label } from "@/components/ui/label";
@@ -32,7 +35,7 @@ export default function RegisterPage() {
           <form action={formAction} className="space-y-4">
             <div className="space-y-2">
               <Label htmlFor="name">Name</Label>
-              <Input id="name" name="name" placeholder="Waqar Khan" />
+              <Input id="name" name="name" placeholder="Name" />
             </div>
 
             <div className="space-y-2">
@@ -41,7 +44,7 @@ export default function RegisterPage() {
                 id="email"
                 name="email"
                 type="email"
-                placeholder="waqar@gmail.com"
+                placeholder="Email"
                 required
               />
             </div>
@@ -52,7 +55,7 @@ export default function RegisterPage() {
                 id="password"
                 name="password"
                 type="password"
-                placeholder="••••••••"
+                placeholder="Password"
                 required
               />
             </div>
