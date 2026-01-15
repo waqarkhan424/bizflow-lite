@@ -1,5 +1,6 @@
 "use client";
 
+import Link from "next/link";
 import { useActionState } from "react";
 import { auth_register } from "../actions/auth_register";
 import type { RegisterState } from "../schemas/register-schema";
@@ -66,6 +67,14 @@ export default function RegisterForm() {
             <Button type="submit" className="w-full" disabled={isPending}>
               {isPending ? "Creating..." : "Create account"}
             </Button>
+
+            <div className="text-center text-sm text-muted-foreground">
+              Already have an account?{" "}
+              <Link href="/login" className="text-primary underline underline-offset-4">
+                Login
+              </Link>
+            </div>
+
           </form>
         </CardContent>
       </Card>
