@@ -3,7 +3,7 @@
 
 import { prisma } from "@/lib/prisma";
 import bcrypt from "bcryptjs";
-import { registerSchema, type RegisterState } from "../schemas/registerSchema";
+import { registerSchema, type RegisterState} from "../schemas/register-schema";
 
 
 

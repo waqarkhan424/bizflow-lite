@@ -2,7 +2,7 @@
 
 import { prisma } from "@/lib/prisma";
 import bcrypt from "bcryptjs";
-import { loginSchema, type LoginState } from "../schemas/loginSchema";
+import { loginSchema, type LoginState } from "../schemas/login-schema";
 
 
 import { cookies } from "next/headers";
