@@ -1,7 +1,8 @@
 "use client";
 
 import Link from "next/link";
-import { useActionState } from "react";
+import { useActionState, useEffect } from "react";
+import { useRouter, useSearchParams } from "next/navigation";
 import { auth_login } from "../actions/auth_login";
 import type { LoginState } from "../schemas/login-schema";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
@@ -19,6 +20,27 @@ const initialState: LoginState = {
 export default function LoginForm({ registered = false }: { registered?: boolean }) {
   const [state, formAction, isPending] = useActionState(auth_login, initialState);
 
+  const router = useRouter();
+  const searchParams = useSearchParams();
+
+
+
+    useEffect(() => {
+    if (!registered) return;
+
+    const hasRegistered = searchParams.get("registered") === "1";
+    if (!hasRegistered) return;
+
+    // Remove only the "registered" param, keep others if any
+    const params = new URLSearchParams(searchParams.toString());
+    params.delete("registered");
+
+    const query = params.toString();
+    const nextUrl = query ? `/login?${query}` : "/login";
+
+    router.replace(nextUrl);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [registered]);
 
   return (
     <div className="min-h-screen flex items-center justify-center p-4">
