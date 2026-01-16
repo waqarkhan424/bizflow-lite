@@ -5,6 +5,7 @@ import { prisma } from "@/lib/prisma";
 import bcrypt from "bcryptjs";
 import { registerSchema, type RegisterState} from "../schemas/register-schema";
 
+import { redirect } from "next/navigation";
 
 
 export async function auth_register(prevState: RegisterState,formData: FormData): Promise<RegisterState> {
@@ -41,5 +42,8 @@ export async function auth_register(prevState: RegisterState,formData: FormData)
     },
   });
 
-  return { ok: true, message: "Account created successfully" };
+
+  //  redirect to login with a success flag
+  redirect("/login?registered=1");
+
 }

@@ -16,7 +16,7 @@ const initialState: LoginState = {
   message: "",
 };
 
-export default function LoginForm() {
+export default function LoginForm({ registered = false }: { registered?: boolean }) {
   const [state, formAction, isPending] = useActionState(auth_login, initialState);
 
 
@@ -29,6 +29,15 @@ export default function LoginForm() {
 
         <CardContent>
           <form action={formAction} className="space-y-4">
+
+          {registered && !state.message && (
+              <p className="text-sm text-green-600">
+                Account created successfully. Please log in.
+              </p>
+            )}
+
+
+
             <div className="space-y-2">
               <Label htmlFor="email">Email</Label>
               <Input
