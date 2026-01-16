@@ -3,8 +3,8 @@ import LoginForm from "../components/login-form";
 import { redirect } from "next/navigation";
 
 
-export default async function LoginPage({searchParams}: {searchParams: Promise<{ registered?: string }>}) {
 
+export default async function LoginPage() {
 
   const user = await getCurrentUser();
 
@@ -12,8 +12,6 @@ export default async function LoginPage({searchParams}: {searchParams: Promise<{
     redirect("/dashboard");
   }
 
-  const { registered } = await searchParams;
 
-
-  return <LoginForm  registered={registered === "1"} />;
+  return <LoginForm />;
 }

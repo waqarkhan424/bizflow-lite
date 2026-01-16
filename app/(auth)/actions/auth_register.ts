@@ -43,7 +43,8 @@ export async function auth_register(prevState: RegisterState,formData: FormData)
   });
 
 
-  //  redirect to login with a success flag
-  redirect("/login?registered=1");
+
+  redirect("/login");
+
 
 }

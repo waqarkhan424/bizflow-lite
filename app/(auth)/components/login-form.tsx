@@ -1,8 +1,7 @@
 "use client";
 
 import Link from "next/link";
-import { useActionState, useEffect } from "react";
-import { useRouter, useSearchParams } from "next/navigation";
+import { useActionState} from "react";
 import { auth_login } from "../actions/auth_login";
 import type { LoginState } from "../schemas/login-schema";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
@@ -17,30 +16,10 @@ const initialState: LoginState = {
   message: "",
 };
 
-export default function LoginForm({ registered = false }: { registered?: boolean }) {
+export default function LoginForm() {
   const [state, formAction, isPending] = useActionState(auth_login, initialState);
 
-  const router = useRouter();
-  const searchParams = useSearchParams();
 
-
-
-    useEffect(() => {
-    if (!registered) return;
-
-    const hasRegistered = searchParams.get("registered") === "1";
-    if (!hasRegistered) return;
-
-    // Remove only the "registered" param, keep others if any
-    const params = new URLSearchParams(searchParams.toString());
-    params.delete("registered");
-
-    const query = params.toString();
-    const nextUrl = query ? `/login?${query}` : "/login";
-
-    router.replace(nextUrl);
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [registered]);
 
   return (
     <div className="min-h-screen flex items-center justify-center p-4">
@@ -52,14 +31,7 @@ export default function LoginForm({ registered = false }: { registered?: boolean
         <CardContent>
           <form action={formAction} className="space-y-4">
 
-          {registered && !state.message && (
-              <p className="text-sm text-green-600">
-                Account created successfully. Please log in.
-              </p>
-            )}
-
-
-
+    
             <div className="space-y-2">
               <Label htmlFor="email">Email</Label>
               <Input
