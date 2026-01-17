@@ -19,6 +19,19 @@ model Session {
   user      User     @relation(fields: [userId], references: [id], onDelete: Cascade)
 }
 
+
+model PasswordResetToken {
+  id        String   @id @default(auto()) @map("_id") @db.ObjectId
+  token     String   @unique
+  userId    String   @db.ObjectId
+
+  createdAt DateTime @default(now())
+  expiresAt DateTime
+
+  user      User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+}
+
+
 model User {
   id        String   @id @default(auto()) @map("_id") @db.ObjectId
   name      String?
@@ -29,5 +42,6 @@ model User {
   updatedAt DateTime @updatedAt
 
   sessions  Session[]
+  passwordResetTokens PasswordResetToken[]
 
 }

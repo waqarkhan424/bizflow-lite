@@ -55,6 +55,17 @@ export default function LoginForm() {
             </div>
 
 
+
+      <div className="text-right text-sm">
+                  <Link
+                    href="/forgot-password"
+                    className="text-primary underline underline-offset-4"
+                  >
+                    Forgot password?
+                  </Link>
+                </div>
+
+
         {state.message && (
               <p className={`text-sm ${state.ok ? "text-green-600" : "text-red-600"}`}>
                 {state.message}
@@ -66,6 +77,10 @@ export default function LoginForm() {
             <Button type="submit" className="w-full"  disabled={isPending}>
               {isPending ? "Logging in..." : "Login"}
             </Button>
+
+
+        
+
 
             <div className="text-center text-sm text-muted-foreground">
               Don&apos;t have an account?{" "}
