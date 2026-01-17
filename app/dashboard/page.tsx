@@ -1,10 +1,10 @@
-import { getCurrentUser } from "@/lib/get-current-user";
-import { redirect } from "next/navigation";
+
+import { requireUser } from "@/lib/require-user";
 import { auth_logout } from "../(auth)/actions/auth_logout";
 import { Button } from "@/components/ui/button";
 
 export default async function DashboardPage() {
-  const user = await getCurrentUser();
+ const user = await requireUser();
 
   return (
     <div className="min-h-screen p-6 space-y-4">
