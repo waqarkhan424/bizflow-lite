@@ -13,7 +13,7 @@ export async function auth_register(prevState: RegisterState,formData: FormData)
 
   const raw = {
     name: String(formData.get("name") ?? "").trim(),
-    email: String(formData.get("email") ?? "").trim(),
+    email: String(formData.get("email") ?? "").trim().toLowerCase(),
     password: String(formData.get("password") ?? ""),
   };
 

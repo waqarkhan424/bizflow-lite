@@ -12,7 +12,7 @@ import { SESSION_COOKIE_NAME, SESSION_DAYS } from "@/lib/auth";
 export async function auth_login(prevState: LoginState,formData: FormData): Promise<LoginState> {
     
   const raw = {
-    email: String(formData.get("email") ?? "").trim(),
+    email: String(formData.get("email") ?? "").trim().toLowerCase(),
     password: String(formData.get("password") ?? ""),
   };
 

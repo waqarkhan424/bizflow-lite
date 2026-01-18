@@ -1,6 +1,7 @@
 "use server";
 
 import { prisma } from "@/lib/prisma";
+import { redirect } from "next/navigation";
 import bcrypt from "bcryptjs";
 
 export async function auth_resetPassword(_: any, formData: FormData) {
@@ -32,5 +33,5 @@ export async function auth_resetPassword(_: any, formData: FormData) {
   // delete token after use
   await prisma.passwordResetToken.delete({ where: { token } });
 
-  return { ok: true, message: "Password updated. You can login now." };
+  redirect("/login");
 }
