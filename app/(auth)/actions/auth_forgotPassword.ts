@@ -1,5 +1,6 @@
 "use server";
 
+import { sendResetPasswordEmail } from "@/lib/emails/send-reset-password-email";
 import { prisma } from "@/lib/prisma";
 import crypto from "crypto";
 
@@ -26,9 +27,14 @@ export async function auth_forgotPassword(_: any, formData: FormData) {
     data: { token, userId: user.id, expiresAt },
   });
 
-  // TODO: send email (for now just console log)
+
   const resetLink = `${process.env.NEXT_PUBLIC_APP_URL}/reset-password?token=${token}`;
-  console.log("RESET LINK:", resetLink);
+
+  
+  await sendResetPasswordEmail({
+    to: user.email,
+    resetLink,
+  });
 
   return okResponse;
 }
