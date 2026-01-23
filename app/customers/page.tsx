@@ -33,7 +33,10 @@ export default async function CustomersPage() {
             className="border rounded-lg p-4 flex items-start justify-between gap-4"
             >
             <div> 
-              <p className="font-medium">{c.name}</p>
+              <Link href={`/customers/${c.id}`} className="font-medium underline underline-offset-4">
+              {c.name}
+              </Link>
+
               <p className="text-sm text-muted-foreground">
                 {c.email || "No email"} • {c.phone || "No phone"}
               </p>
