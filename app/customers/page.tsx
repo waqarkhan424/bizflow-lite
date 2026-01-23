@@ -1,4 +1,5 @@
 import { requireBusiness } from "@/lib/require-business";
+import CustomerDeleteButton from "./components/customer-delete-button";
 import { prisma } from "@/lib/prisma";
 import Link from "next/link";
 
@@ -27,11 +28,19 @@ export default async function CustomersPage() {
       ) : (
         <div className="space-y-3">
           {customers.map((c) => (
-            <div key={c.id} className="border rounded-lg p-4">
+            <div 
+            key={c.id} 
+            className="border rounded-lg p-4 flex items-start justify-between gap-4"
+            >
+            <div> 
               <p className="font-medium">{c.name}</p>
               <p className="text-sm text-muted-foreground">
                 {c.email || "No email"} • {c.phone || "No phone"}
               </p>
+              </div> 
+
+              <CustomerDeleteButton customerId={c.id} customerName={c.name} />
+
             </div>
           ))}
         </div>
