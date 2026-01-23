@@ -8,6 +8,42 @@ datasource db {
 }
 
 
+
+
+model User {
+  id        String   @id @default(auto()) @map("_id") @db.ObjectId
+  name      String?
+  email     String   @unique
+  password  String
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  sessions  Session[]
+  passwordResetTokens PasswordResetToken[]
+
+  
+  business  Business?
+
+}
+
+
+model Business {
+  id        String   @id @default(auto()) @map("_id") @db.ObjectId
+
+  userId    String   @unique @db.ObjectId
+  user      User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  name      String
+  phone     String?
+  address   String?
+  note      String?   // invoice footer note / extra note
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+}
+
+
 model Session {
   id        String   @id @default(auto()) @map("_id") @db.ObjectId
   token     String   @unique
@@ -32,16 +68,3 @@ model PasswordResetToken {
 }
 
 
-model User {
-  id        String   @id @default(auto()) @map("_id") @db.ObjectId
-  name      String?
-  email     String   @unique
-  password  String
-
-  createdAt DateTime @default(now())
-  updatedAt DateTime @updatedAt
-
-  sessions  Session[]
-  passwordResetTokens PasswordResetToken[]
-
-}
