@@ -1,5 +1,6 @@
 import { requireBusiness } from "@/lib/require-business";
 import CustomerDeleteButton from "./components/customer-delete-button";
+import CustomerEditButton from "./components/customer-edit-button";
 import { prisma } from "@/lib/prisma";
 import Link from "next/link";
 
@@ -33,7 +34,9 @@ export default async function CustomersPage() {
             className="border rounded-lg p-4 flex items-start justify-between gap-4"
             >
             <div> 
-              <Link href={`/customers/${c.id}`} className="font-medium underline underline-offset-4">
+              <Link 
+               href={`/customers/${c.id}`}
+               className="font-medium underline underline-offset-4">
               {c.name}
               </Link>
 
@@ -42,7 +45,24 @@ export default async function CustomersPage() {
               </p>
               </div> 
 
+
+              <div className="flex items-center gap-2">
+
+             <CustomerEditButton
+                  customer={{
+                    id: c.id,
+                    name: c.name,
+                    email: c.email,
+                    phone: c.phone,
+                    address: c.address,
+                  }}
+                />
+
+
+
+
               <CustomerDeleteButton customerId={c.id} customerName={c.name} />
+           </div>
 
             </div>
           ))}
