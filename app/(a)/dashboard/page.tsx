@@ -7,7 +7,7 @@ export default async function DashboardPage() {
   const { user, business } = await requireBusiness();
 
   return (
-    <div className="min-h-screen p-6 space-y-4">
+    <div className="space-y-4">
 
   <div className="flex items-center justify-between">
   <div>
