@@ -3,6 +3,8 @@ import Link from "next/link";
 const nav = [
   { label: "Dashboard", href: "/dashboard" },
   { label: "Customers", href: "/customers" },
+  { label: "Settings", href: "/settings" },
+
 ];
 
 export default function Sidebar() {
