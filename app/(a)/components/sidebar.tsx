@@ -10,7 +10,6 @@ export default function Sidebar() {
     <div className="p-4 space-y-6">
       <div>
         <p className="text-lg font-semibold">Bizflow Lite</p>
-        <p className="text-sm text-muted-foreground">App</p>
       </div>
 
       <nav className="space-y-1">
