@@ -3,14 +3,37 @@ import CustomerDeleteButton from "./components/customer-delete-button";
 import CustomerEditButton from "./components/customer-edit-button";
 import { prisma } from "@/lib/prisma";
 import Link from "next/link";
+import CustomersPagination from "./components/customers-pagination";
 
-export default async function CustomersPage() {
+const PAGE_SIZE = 10;
+
+
+export default async function CustomersPage({searchParams}: {searchParams: Promise<{ page?: string }>}) {
+
+
   const { business } = await requireBusiness();
 
-  const customers = await prisma.customer.findMany({
-    where: { businessId: business.id },
-    orderBy: { createdAt: "desc" },
-  });
+   const sp = await searchParams;
+
+  const page = Math.max(1, Number(sp.page ?? "1") || 1);
+  const skip = (page - 1) * PAGE_SIZE;
+
+
+  const [customers, total] = await Promise.all([
+    prisma.customer.findMany({
+      where: { businessId: business.id },
+      orderBy: { createdAt: "desc" },
+      skip,
+      take: PAGE_SIZE,
+    }),
+    prisma.customer.count({
+      where: { businessId: business.id },
+    }),
+  ]);
+
+
+  const totalPages = Math.max(1, Math.ceil(total / PAGE_SIZE));
+
 
   return (
     <div className="space-y-6">
@@ -27,6 +50,8 @@ export default async function CustomersPage() {
       {customers.length === 0 ? (
         <p className="text-muted-foreground">No customers yet.</p>
       ) : (
+
+        <>
         <div className="space-y-3">
           {customers.map((c) => (
             <div 
@@ -67,6 +92,12 @@ export default async function CustomersPage() {
             </div>
           ))}
         </div>
+
+             <CustomersPagination page={page} totalPages={totalPages} />
+
+        </>
+
+
       )}
     </div>
   );
