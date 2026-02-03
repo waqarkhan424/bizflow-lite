@@ -28,6 +28,57 @@ model User {
 }
 
 
+
+model Invoice {
+  id          String   @id @default(auto()) @map("_id") @db.ObjectId
+
+  businessId  String   @db.ObjectId
+  business    Business @relation(fields: [businessId], references: [id], onDelete: Cascade)
+
+  customerId  String   @db.ObjectId
+  customer    Customer @relation(fields: [customerId], references: [id], onDelete: Restrict)
+
+  number      String   // e.g. INV-0001 (generated in code, later step)
+  status      String   @default("unpaid") // draft | unpaid | paid
+
+  issueDate   DateTime @default(now())
+  dueDate     DateTime?
+
+  notes       String?
+
+  subtotal    Int      @default(0) // store in cents
+  total       Int      @default(0) // store in cents
+
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+
+  items       InvoiceItem[]
+
+  @@index([businessId])
+  @@index([customerId])
+  @@unique([businessId, number]) // invoice number unique per business
+}
+
+
+model InvoiceItem {
+  id          String   @id @default(auto()) @map("_id") @db.ObjectId
+
+  invoiceId   String   @db.ObjectId
+  invoice     Invoice  @relation(fields: [invoiceId], references: [id], onDelete: Cascade)
+
+  name        String   // item title e.g. "Web Design"
+  qty         Int      @default(1)
+  rate        Int      @default(0) // store in cents
+  amount      Int      @default(0) // qty * rate (cents)
+
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+
+  @@index([invoiceId])
+}
+
+
+
 model Customer {
   id         String   @id @default(auto()) @map("_id") @db.ObjectId
 
