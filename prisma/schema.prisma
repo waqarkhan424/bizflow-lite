@@ -93,6 +93,8 @@ model Customer {
   createdAt  DateTime @default(now())
   updatedAt  DateTime @updatedAt
 
+  invoices   Invoice[]
+
   @@index([businessId])
 }
 
@@ -114,6 +116,7 @@ model Business {
 
  customers Customer[]
 
+ invoices  Invoice[] 
 
 }
 
