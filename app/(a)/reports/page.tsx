@@ -15,12 +15,14 @@ function parseMonth(monthStr: string) {
   return new Date(safeY, (safeM || 1) - 1, 1);
 }
 
-export default async function ReportsPage({searchParams}: {searchParams?: { month?: string }}) {
-    
+export default async function ReportsPage({searchParams}: {searchParams: Promise<{ month?: string }>}) {
+
   const { business } = await requireBusiness();
 
+  const sp = await searchParams; 
+
   const now = new Date();
-  const monthStr = (searchParams?.month ?? monthLabel(now)).trim();
+  const monthStr = (sp.month ?? monthLabel(now)).trim();
 
   const monthDate = parseMonth(monthStr);
   const from = startOfMonth(monthDate);
