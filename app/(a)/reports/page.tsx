@@ -7,6 +7,8 @@ import ReportsHeader from "./components/reports-header";
 import ReportsSummaryCards from "./components/reports-summary-cards";
 import PaidInvoicesCard from "./components/paid-invoices-card";
 import MonthExpensesCard from "./components/month-expenses-card";
+import ReportsBars from "./components/reports-bars";
+
 
 function parseMonth(monthStr: string) {
   const [y, m] = monthStr.split("-").map((x) => Number(x));
@@ -93,24 +95,33 @@ export default async function ReportsPage({searchParams}: {searchParams: Promise
   const thisMonthStr = monthLabel(now);
 
   return (
-    <div className="space-y-6">
-      <ReportsHeader
-        monthStr={monthStr}
-        prevStr={prevStr}
-        nextStr={nextStr}
-        thisMonthStr={thisMonthStr}
-      />
+  <div className="space-y-6">
+    <ReportsHeader
+      monthStr={monthStr}
+      prevStr={prevStr}
+      nextStr={nextStr}
+      thisMonthStr={thisMonthStr}
+    />
 
-      <ReportsSummaryCards
-        income={money(income)}
-        expenses={money(expenses)}
-        profit={money(profit)}
-      />
+    <ReportsSummaryCards
+      income={money(income)}
+      expenses={money(expenses)}
+      profit={money(profit)}
+    />
 
-      <div className="grid gap-4 lg:grid-cols-2">
+    <div className="grid gap-4 lg:grid-cols-3">
+      <div className="lg:col-span-1">
+        <ReportsBars income={income} expenses={expenses} profit={profit} />
+      </div>
+
+      <div className="lg:col-span-2 grid gap-4 md:grid-cols-2">
         <PaidInvoicesCard invoices={paidInvoices} formatMoney={money} />
         <MonthExpensesCard expenses={monthExpenses} formatMoney={money} />
       </div>
     </div>
+  </div>
+
+
+
   );
 }
