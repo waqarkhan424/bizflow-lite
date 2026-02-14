@@ -1,8 +1,9 @@
+
 "use client";
 
 import { useActionState } from "react";
 import { password_change, type PasswordChangeState } from "../actions/password_change";
-import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
+import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle } from "@/components/ui/card";
 import { Label } from "@/components/ui/label";
 import { Input } from "@/components/ui/input";
 import { Button } from "@/components/ui/button";
@@ -13,26 +14,31 @@ export default function ChangePasswordCard() {
   const [state, formAction, isPending] = useActionState(password_change, initialState);
 
   return (
-    <Card className="max-w-2xl">
+    <Card>
       <CardHeader>
-        <CardTitle>Change Password</CardTitle>
+        <CardTitle>Security</CardTitle>
+        <CardDescription>
+          Change your password to keep your account secure. You’ll be asked to log in again after a successful change.
+        </CardDescription>
       </CardHeader>
 
-      <CardContent>
-        <form action={formAction} className="space-y-4">
+      <form action={formAction}>
+        <CardContent className="space-y-4">
           <div className="space-y-2">
-            <Label htmlFor="currentPassword">Current Password</Label>
+            <Label htmlFor="currentPassword">Current password</Label>
             <Input id="currentPassword" name="currentPassword" type="password" required />
           </div>
 
-          <div className="space-y-2">
-            <Label htmlFor="newPassword">New Password</Label>
-            <Input id="newPassword" name="newPassword" type="password" required />
-          </div>
+          <div className="grid gap-4 sm:grid-cols-2">
+            <div className="space-y-2">
+              <Label htmlFor="newPassword">New password</Label>
+              <Input id="newPassword" name="newPassword" type="password" required />
+            </div>
 
-          <div className="space-y-2">
-            <Label htmlFor="confirmPassword">Confirm New Password</Label>
-            <Input id="confirmPassword" name="confirmPassword" type="password" required />
+            <div className="space-y-2">
+              <Label htmlFor="confirmPassword">Confirm new password</Label>
+              <Input id="confirmPassword" name="confirmPassword" type="password" required />
+            </div>
           </div>
 
           {state.message ? (
@@ -40,12 +46,14 @@ export default function ChangePasswordCard() {
               {state.message}
             </p>
           ) : null}
+        </CardContent>
 
+        <CardFooter className="flex items-center justify-end">
           <Button type="submit" disabled={isPending}>
             {isPending ? "Updating..." : "Update password"}
           </Button>
-        </form>
-      </CardContent>
+        </CardFooter>
+      </form>
     </Card>
   );
 }
