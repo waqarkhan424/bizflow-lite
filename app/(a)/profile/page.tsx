@@ -11,19 +11,26 @@ export default async function ProfilePage() {
     select: { name: true, email: true },
   });
 
+  const name = dbUser?.name ?? user.name ?? "";
+  const email = dbUser?.email ?? user.email;
+
   return (
-    <div className="space-y-6">
-      <div>
-        <h1 className="text-2xl font-semibold">Profile</h1>
-        <p className="text-sm text-muted-foreground">Update your account info.</p>
+    <div className="mx-auto w-full max-w-5xl space-y-8">
+      {/* Page header */}
+      <div className="flex items-start justify-between gap-4">
+        <div className="space-y-1">
+          <h1 className="text-3xl font-semibold tracking-tight">Profile</h1>
+          <p className="text-sm text-muted-foreground">
+            Manage your account details and sessions.
+          </p>
+        </div>
       </div>
 
-      <ProfileNameCard
-        defaultName={dbUser?.name ?? ""}
-        email={dbUser?.email ?? user.email}
-      />
-
-      <LogoutAllDevicesCard />
+      {/* Content grid */}
+      <div className="grid gap-6 md:grid-cols-2">
+        <ProfileNameCard defaultName={name} email={email} />
+        <LogoutAllDevicesCard />
+      </div>
     </div>
   );
 }
