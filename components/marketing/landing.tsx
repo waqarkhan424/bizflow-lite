@@ -1,4 +1,3 @@
-// FILE: components/marketing/landing.tsx
 import type React from "react";
 import Link from "next/link";
 import { Button } from "@/components/ui/button";
