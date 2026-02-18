@@ -1,3 +1,4 @@
+// FILE: components/marketing/landing.tsx
 import Link from "next/link";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent } from "@/components/ui/card";
@@ -11,6 +12,8 @@ import {
   Wallet,
   ShieldCheck,
   Sparkles,
+  Check,
+  LayoutDashboard,
 } from "lucide-react";
 
 function FeatureCard({
@@ -61,10 +64,110 @@ function Step({
   );
 }
 
+function ShotCard({
+  title,
+  desc,
+  icon: Icon,
+  lines,
+}: {
+  title: string;
+  desc: string;
+  icon: React.ElementType;
+  lines: string[];
+}) {
+  return (
+    <Card className="overflow-hidden rounded-3xl border bg-background/70 shadow-sm backdrop-blur">
+      <CardContent className="p-6">
+        <div className="flex items-start justify-between gap-4">
+          <div className="space-y-1">
+            <div className="flex items-center gap-2">
+              <span className="flex h-9 w-9 items-center justify-center rounded-xl bg-primary/10">
+                <Icon className="h-5 w-5 text-primary" />
+              </span>
+              <h3 className="font-semibold">{title}</h3>
+            </div>
+            <p className="text-sm text-muted-foreground">{desc}</p>
+          </div>
+
+          <Badge variant="secondary" className="rounded-full">
+            Preview
+          </Badge>
+        </div>
+
+        <div className="mt-5 space-y-3">
+          {lines.map((t, i) => (
+            <div
+              key={i}
+              className="flex items-center justify-between rounded-2xl border bg-background p-4"
+            >
+              <span className="text-sm font-medium">{t}</span>
+              <span className="h-2 w-2 rounded-full bg-primary/60" />
+            </div>
+          ))}
+        </div>
+      </CardContent>
+    </Card>
+  );
+}
+
+function PricingCard({
+  title,
+  price,
+  subtitle,
+  features,
+  primary,
+}: {
+  title: string;
+  price: string;
+  subtitle: string;
+  features: string[];
+  primary?: boolean;
+}) {
+  return (
+    <Card
+      className={[
+        "rounded-3xl shadow-sm",
+        primary ? "border-primary/30 bg-background/80" : "bg-background/70",
+      ].join(" ")}
+    >
+      <CardContent className="p-7">
+        <div className="flex items-start justify-between gap-4">
+          <div>
+            <p className="text-sm font-semibold">{title}</p>
+            <p className="mt-2 text-4xl font-semibold tracking-tight">{price}</p>
+            <p className="mt-1 text-sm text-muted-foreground">{subtitle}</p>
+          </div>
+          {primary ? (
+            <Badge className="rounded-full">Recommended</Badge>
+          ) : (
+            <Badge variant="secondary" className="rounded-full">
+              Simple
+            </Badge>
+          )}
+        </div>
+
+        <div className="mt-6 space-y-3">
+          {features.map((f, i) => (
+            <div key={i} className="flex items-start gap-2">
+              <Check className="mt-0.5 h-4 w-4 text-primary" />
+              <p className="text-sm text-muted-foreground">{f}</p>
+            </div>
+          ))}
+        </div>
+
+        <div className="mt-7">
+          <Button asChild className="w-full rounded-2xl" variant={primary ? "default" : "outline"}>
+            <Link href="/register">Get started</Link>
+          </Button>
+        </div>
+      </CardContent>
+    </Card>
+  );
+}
+
 export default function Landing() {
   return (
     <div className="relative min-h-screen overflow-hidden">
-      {/* same style vibe as your auth pages background */}
       <div className="absolute inset-0 -z-10 bg-gradient-to-br from-primary/10 via-background to-background" />
       <div className="absolute inset-0 -z-10 [background-image:radial-gradient(circle_at_1px_1px,hsl(var(--muted-foreground)/0.12)_1px,transparent_0)] [background-size:22px_22px] opacity-40" />
 
@@ -76,7 +179,7 @@ export default function Landing() {
           </div>
           <div className="leading-tight">
             <div className="font-semibold tracking-tight">Bizflow Lite</div>
-            <div className="text-xs text-muted-foreground">Simple business tracking</div>
+            <div className="text-xs text-muted-foreground">Invoices • Expenses • Reports</div>
           </div>
         </Link>
 
@@ -128,7 +231,7 @@ export default function Landing() {
             </div>
           </div>
 
-          {/* Right Side “Preview” */}
+          {/* Right “preview” */}
           <div className="relative">
             <div className="rounded-3xl border bg-background/70 p-6 shadow-sm backdrop-blur">
               <div className="flex items-center justify-between">
@@ -192,13 +295,11 @@ export default function Landing() {
 
         {/* Features */}
         <section className="mt-14">
-          <div className="mb-6 flex items-end justify-between gap-4">
-            <div>
-              <h2 className="text-2xl font-semibold tracking-tight">Everything you need</h2>
-              <p className="text-sm text-muted-foreground">
-                Clean modules that match your app: Customers, Invoices, Expenses, Reports.
-              </p>
-            </div>
+          <div className="mb-6">
+            <h2 className="text-2xl font-semibold tracking-tight">Everything you need</h2>
+            <p className="mt-1 text-sm text-muted-foreground">
+              Clean modules that match your app: Customers, Invoices, Expenses, Reports.
+            </p>
           </div>
 
           <div className="grid gap-4 md:grid-cols-2">
@@ -225,19 +326,55 @@ export default function Landing() {
           </div>
         </section>
 
+        {/* Screenshots */}
+        <section className="mt-14">
+          <div className="mb-6 flex items-end justify-between gap-4">
+            <div>
+              <h2 className="text-2xl font-semibold tracking-tight">Screenshots</h2>
+              <p className="mt-1 text-sm text-muted-foreground">
+                Same clean style as your dashboard — simple cards and readable layouts.
+              </p>
+            </div>
+            <Badge variant="secondary" className="rounded-full">
+              UI preview
+            </Badge>
+          </div>
+
+          <div className="grid gap-4 lg:grid-cols-2">
+            <ShotCard
+              title="Dashboard"
+              desc="Monthly snapshot + quick actions."
+              icon={LayoutDashboard}
+              lines={["Income (month)", "Expenses (month)", "Profit (month)", "Unpaid invoices"]}
+            />
+            <ShotCard
+              title="Customers"
+              desc="Search, list, and manage customers quickly."
+              icon={Users}
+              lines={["Search bar", "Customer rows", "Edit / Delete", "Pagination"]}
+            />
+            <ShotCard
+              title="Invoices"
+              desc="Track invoice status and totals."
+              icon={Receipt}
+              lines={["INV numbers", "Paid / Unpaid", "Customer name", "Totals"]}
+            />
+            <ShotCard
+              title="Reports"
+              desc="Monthly insight: income vs expenses."
+              icon={BarChart3}
+              lines={["Monthly filter", "Summary cards", "Profit view", "Export ready"]}
+            />
+          </div>
+        </section>
+
         {/* How it works */}
         <section className="mt-14">
           <h2 className="text-2xl font-semibold tracking-tight">How it works</h2>
-          <p className="mt-1 text-sm text-muted-foreground">
-            Start in minutes. No heavy setup.
-          </p>
+          <p className="mt-1 text-sm text-muted-foreground">Start in minutes. No heavy setup.</p>
 
           <div className="mt-6 grid gap-4 md:grid-cols-3">
-            <Step
-              no="1"
-              title="Create account"
-              desc="Sign up and login from your device."
-            />
+            <Step no="1" title="Create account" desc="Sign up and login from your device." />
             <Step
               no="2"
               title="Add business"
@@ -247,6 +384,42 @@ export default function Landing() {
               no="3"
               title="Track & view reports"
               desc="Add customers, invoices, expenses — then see monthly profit."
+            />
+          </div>
+        </section>
+
+        {/* Pricing */}
+        <section className="mt-14">
+          <div className="mb-6">
+            <h2 className="text-2xl font-semibold tracking-tight">Pricing</h2>
+            <p className="mt-1 text-sm text-muted-foreground">
+              Keep it simple now — you can change this anytime.
+            </p>
+          </div>
+
+          <div className="grid gap-4 lg:grid-cols-2">
+            <PricingCard
+              title="Free"
+              price="0"
+              subtitle="Best for getting started"
+              features={[
+                "Customers module",
+                "Invoices module",
+                "Expenses tracking",
+                "Reports (monthly profit)",
+              ]}
+            />
+            <PricingCard
+              title="Pro (later)"
+              price="Coming soon"
+              subtitle="When you decide to monetize"
+              primary
+              features={[
+                "PDF invoice template",
+                "Email invoice to customer",
+                "Advanced reports + exports",
+                "Backup & restore / multi-device sync",
+              ]}
             />
           </div>
         </section>
