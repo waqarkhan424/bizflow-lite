@@ -1,3 +1,5 @@
+// FILE: components/marketing/landing.tsx
+import type React from "react";
 import Link from "next/link";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent } from "@/components/ui/card";
@@ -11,8 +13,9 @@ import {
   Wallet,
   ShieldCheck,
   Sparkles,
-  Check,
-  LayoutDashboard,
+  Mail,
+  Github,
+  Globe,
 } from "lucide-react";
 
 function FeatureCard({
@@ -63,107 +66,6 @@ function Step({
   );
 }
 
-function ShotCard({
-  title,
-  desc,
-  icon: Icon,
-  lines,
-}: {
-  title: string;
-  desc: string;
-  icon: React.ElementType;
-  lines: string[];
-}) {
-  return (
-    <Card className="overflow-hidden rounded-3xl border bg-background/70 shadow-sm backdrop-blur">
-      <CardContent className="p-6">
-        <div className="flex items-start justify-between gap-4">
-          <div className="space-y-1">
-            <div className="flex items-center gap-2">
-              <span className="flex h-9 w-9 items-center justify-center rounded-xl bg-primary/10">
-                <Icon className="h-5 w-5 text-primary" />
-              </span>
-              <h3 className="font-semibold">{title}</h3>
-            </div>
-            <p className="text-sm text-muted-foreground">{desc}</p>
-          </div>
-
-          <Badge variant="secondary" className="rounded-full">
-            Preview
-          </Badge>
-        </div>
-
-        <div className="mt-5 space-y-3">
-          {lines.map((t, i) => (
-            <div
-              key={i}
-              className="flex items-center justify-between rounded-2xl border bg-background p-4"
-            >
-              <span className="text-sm font-medium">{t}</span>
-              <span className="h-2 w-2 rounded-full bg-primary/60" />
-            </div>
-          ))}
-        </div>
-      </CardContent>
-    </Card>
-  );
-}
-
-function PricingCard({
-  title,
-  price,
-  subtitle,
-  features,
-  primary,
-}: {
-  title: string;
-  price: string;
-  subtitle: string;
-  features: string[];
-  primary?: boolean;
-}) {
-  return (
-    <Card
-      className={[
-        "rounded-3xl shadow-sm",
-        primary ? "border-primary/30 bg-background/80" : "bg-background/70",
-      ].join(" ")}
-    >
-      <CardContent className="p-7">
-        <div className="flex items-start justify-between gap-4">
-          <div>
-            <p className="text-sm font-semibold">{title}</p>
-            <p className="mt-2 text-4xl font-semibold tracking-tight">{price}</p>
-            <p className="mt-1 text-sm text-muted-foreground">{subtitle}</p>
-          </div>
-          {primary ? (
-            <Badge className="rounded-full">Recommended</Badge>
-          ) : (
-            <Badge variant="secondary" className="rounded-full">
-              Simple
-            </Badge>
-          )}
-        </div>
-
-        <div className="mt-6 space-y-3">
-          {features.map((f, i) => (
-            <div key={i} className="flex items-start gap-2">
-              <Check className="mt-0.5 h-4 w-4 text-primary" />
-              <p className="text-sm text-muted-foreground">{f}</p>
-            </div>
-          ))}
-        </div>
-
-        <div className="mt-7">
-          <Button asChild className="w-full rounded-2xl" variant={primary ? "default" : "outline"}>
-            <Link href="/register">Get started</Link>
-          </Button>
-        </div>
-      </CardContent>
-    </Card>
-  );
-}
-
 export default function Landing() {
   return (
     <div className="relative min-h-screen overflow-hidden">
@@ -178,7 +80,9 @@ export default function Landing() {
           </div>
           <div className="leading-tight">
             <div className="font-semibold tracking-tight">Bizflow Lite</div>
-            <div className="text-xs text-muted-foreground">Invoices • Expenses • Reports</div>
+            <div className="text-xs text-muted-foreground">
+              Invoices • Expenses • Reports
+            </div>
           </div>
         </Link>
 
@@ -186,7 +90,7 @@ export default function Landing() {
           <Button asChild variant="ghost">
             <Link href="/login">Login</Link>
           </Button>
-          <Button asChild>
+          <Button asChild className="rounded-xl">
             <Link href="/register">Create account</Link>
           </Button>
         </nav>
@@ -195,6 +99,7 @@ export default function Landing() {
       {/* Hero */}
       <main className="mx-auto w-full max-w-6xl px-4 pb-16 pt-8">
         <div className="grid items-center gap-10 lg:grid-cols-2">
+          {/* Left */}
           <div className="space-y-5">
             <Badge variant="secondary" className="rounded-full">
               <ShieldCheck className="mr-2 h-3.5 w-3.5" />
@@ -222,73 +127,84 @@ export default function Landing() {
               </Button>
             </div>
 
-            <div className="flex flex-wrap gap-2 pt-2 text-xs text-muted-foreground">
-              <span className="rounded-full border bg-background px-3 py-1">Invoices</span>
-              <span className="rounded-full border bg-background px-3 py-1">Expenses</span>
-              <span className="rounded-full border bg-background px-3 py-1">Reports</span>
-              <span className="rounded-full border bg-background px-3 py-1">Export ready</span>
+            <div className="flex flex-wrap gap-2 pt-1 text-xs text-muted-foreground">
+              <span className="rounded-full border bg-background/70 px-3 py-1">
+                Simple UI
+              </span>
+              <span className="rounded-full border bg-background/70 px-3 py-1">
+                Clean reports
+              </span>
+              <span className="rounded-full border bg-background/70 px-3 py-1">
+                Built with Next.js + ShadCN
+              </span>
             </div>
           </div>
 
-          {/* Right “preview” */}
+          {/* Right: Preview Card */}
           <div className="relative">
-            <div className="rounded-3xl border bg-background/70 p-6 shadow-sm backdrop-blur">
-              <div className="flex items-center justify-between">
-                <div>
-                  <div className="text-sm font-medium">This month snapshot</div>
-                  <div className="text-xs text-muted-foreground">Example preview</div>
-                </div>
-                <Badge className="rounded-full" variant="secondary">
-                  Live-style UI
-                </Badge>
-              </div>
-
-              <div className="mt-5 grid gap-3 sm:grid-cols-3">
-                <div className="rounded-2xl border bg-background p-4">
-                  <div className="text-xs text-muted-foreground">Income</div>
-                  <div className="mt-1 text-xl font-semibold">120,000</div>
-                </div>
-                <div className="rounded-2xl border bg-background p-4">
-                  <div className="text-xs text-muted-foreground">Expenses</div>
-                  <div className="mt-1 text-xl font-semibold">45,000</div>
-                </div>
-                <div className="rounded-2xl border bg-background p-4">
-                  <div className="text-xs text-muted-foreground">Profit</div>
-                  <div className="mt-1 text-xl font-semibold">75,000</div>
-                </div>
-              </div>
-
-              <div className="mt-5 space-y-3">
-                <div className="flex items-center justify-between rounded-2xl border bg-background p-4">
-                  <div className="flex items-center gap-3">
-                    <div className="flex h-9 w-9 items-center justify-center rounded-xl bg-primary/10">
-                      <Receipt className="h-5 w-5 text-primary" />
-                    </div>
-                    <div>
-                      <div className="text-sm font-medium">Invoice INV-0032</div>
-                      <div className="text-xs text-muted-foreground">Paid • Today</div>
-                    </div>
+            <Card className="overflow-hidden rounded-3xl border bg-background/70 shadow-sm backdrop-blur">
+              <CardContent className="p-7">
+                <div className="flex items-start justify-between gap-4">
+                  <div>
+                    <p className="text-sm font-semibold">Monthly snapshot</p>
+                    <p className="mt-1 text-sm text-muted-foreground">
+                      Income, expenses, and profit — at a glance.
+                    </p>
                   </div>
-                  <div className="text-sm font-semibold">18,000</div>
+                  <Badge variant="secondary" className="rounded-full">
+                    Preview
+                  </Badge>
                 </div>
 
-                <div className="flex items-center justify-between rounded-2xl border bg-background p-4">
-                  <div className="flex items-center gap-3">
-                    <div className="flex h-9 w-9 items-center justify-center rounded-xl bg-primary/10">
-                      <Wallet className="h-5 w-5 text-primary" />
-                    </div>
-                    <div>
-                      <div className="text-sm font-medium">Expense</div>
-                      <div className="text-xs text-muted-foreground">Transport • Yesterday</div>
-                    </div>
+                <div className="mt-6 grid gap-3 sm:grid-cols-3">
+                  <div className="rounded-2xl border bg-background p-4">
+                    <div className="text-xs text-muted-foreground">Income</div>
+                    <div className="mt-1 text-xl font-semibold">120,000</div>
                   </div>
-                  <div className="text-sm font-semibold">2,500</div>
+                  <div className="rounded-2xl border bg-background p-4">
+                    <div className="text-xs text-muted-foreground">Expenses</div>
+                    <div className="mt-1 text-xl font-semibold">45,000</div>
+                  </div>
+                  <div className="rounded-2xl border bg-background p-4">
+                    <div className="text-xs text-muted-foreground">Profit</div>
+                    <div className="mt-1 text-xl font-semibold">75,000</div>
+                  </div>
                 </div>
-              </div>
-            </div>
 
-            <div className="pointer-events-none absolute -right-10 -top-10 h-40 w-40 rounded-full bg-primary/10 blur-3xl" />
-            <div className="pointer-events-none absolute -bottom-14 -left-10 h-40 w-40 rounded-full bg-primary/10 blur-3xl" />
+                <div className="mt-5 space-y-3">
+                  <div className="flex items-center justify-between rounded-2xl border bg-background p-4">
+                    <div className="flex items-center gap-3">
+                      <div className="flex h-9 w-9 items-center justify-center rounded-xl bg-primary/10">
+                        <Receipt className="h-5 w-5 text-primary" />
+                      </div>
+                      <div>
+                        <div className="text-sm font-medium">Invoice INV-0032</div>
+                        <div className="text-xs text-muted-foreground">Paid • Today</div>
+                      </div>
+                    </div>
+                    <div className="text-sm font-semibold">18,000</div>
+                  </div>
+
+                  <div className="flex items-center justify-between rounded-2xl border bg-background p-4">
+                    <div className="flex items-center gap-3">
+                      <div className="flex h-9 w-9 items-center justify-center rounded-xl bg-primary/10">
+                        <Wallet className="h-5 w-5 text-primary" />
+                      </div>
+                      <div>
+                        <div className="text-sm font-medium">Expense</div>
+                        <div className="text-xs text-muted-foreground">
+                          Transport • Yesterday
+                        </div>
+                      </div>
+                    </div>
+                    <div className="text-sm font-semibold">2,500</div>
+                  </div>
+                </div>
+              </CardContent>
+
+              <div className="pointer-events-none absolute -right-10 -top-10 h-40 w-40 rounded-full bg-primary/10 blur-3xl" />
+              <div className="pointer-events-none absolute -bottom-14 -left-10 h-40 w-40 rounded-full bg-primary/10 blur-3xl" />
+            </Card>
           </div>
         </div>
 
@@ -325,52 +241,12 @@ export default function Landing() {
           </div>
         </section>
 
-        {/* Screenshots */}
-        <section className="mt-14">
-          <div className="mb-6 flex items-end justify-between gap-4">
-            <div>
-              <h2 className="text-2xl font-semibold tracking-tight">Screenshots</h2>
-              <p className="mt-1 text-sm text-muted-foreground">
-                Same clean style as your dashboard — simple cards and readable layouts.
-              </p>
-            </div>
-            <Badge variant="secondary" className="rounded-full">
-              UI preview
-            </Badge>
-          </div>
-
-          <div className="grid gap-4 lg:grid-cols-2">
-            <ShotCard
-              title="Dashboard"
-              desc="Monthly snapshot + quick actions."
-              icon={LayoutDashboard}
-              lines={["Income (month)", "Expenses (month)", "Profit (month)", "Unpaid invoices"]}
-            />
-            <ShotCard
-              title="Customers"
-              desc="Search, list, and manage customers quickly."
-              icon={Users}
-              lines={["Search bar", "Customer rows", "Edit / Delete", "Pagination"]}
-            />
-            <ShotCard
-              title="Invoices"
-              desc="Track invoice status and totals."
-              icon={Receipt}
-              lines={["INV numbers", "Paid / Unpaid", "Customer name", "Totals"]}
-            />
-            <ShotCard
-              title="Reports"
-              desc="Monthly insight: income vs expenses."
-              icon={BarChart3}
-              lines={["Monthly filter", "Summary cards", "Profit view", "Export ready"]}
-            />
-          </div>
-        </section>
-
         {/* How it works */}
         <section className="mt-14">
           <h2 className="text-2xl font-semibold tracking-tight">How it works</h2>
-          <p className="mt-1 text-sm text-muted-foreground">Start in minutes. No heavy setup.</p>
+          <p className="mt-1 text-sm text-muted-foreground">
+            Start in minutes. No heavy setup.
+          </p>
 
           <div className="mt-6 grid gap-4 md:grid-cols-3">
             <Step no="1" title="Create account" desc="Sign up and login from your device." />
@@ -383,42 +259,6 @@ export default function Landing() {
               no="3"
               title="Track & view reports"
               desc="Add customers, invoices, expenses — then see monthly profit."
-            />
-          </div>
-        </section>
-
-        {/* Pricing */}
-        <section className="mt-14">
-          <div className="mb-6">
-            <h2 className="text-2xl font-semibold tracking-tight">Pricing</h2>
-            <p className="mt-1 text-sm text-muted-foreground">
-              Keep it simple now — you can change this anytime.
-            </p>
-          </div>
-
-          <div className="grid gap-4 lg:grid-cols-2">
-            <PricingCard
-              title="Free"
-              price="0"
-              subtitle="Best for getting started"
-              features={[
-                "Customers module",
-                "Invoices module",
-                "Expenses tracking",
-                "Reports (monthly profit)",
-              ]}
-            />
-            <PricingCard
-              title="Pro (later)"
-              price="Coming soon"
-              subtitle="When you decide to monetize"
-              primary
-              features={[
-                "PDF invoice template",
-                "Email invoice to customer",
-                "Advanced reports + exports",
-                "Backup & restore / multi-device sync",
-              ]}
             />
           </div>
         </section>
@@ -449,13 +289,101 @@ export default function Landing() {
           </div>
         </section>
 
-        {/* Footer */}
-        <footer className="mt-12 flex flex-col items-center justify-between gap-3 border-t py-8 text-sm text-muted-foreground sm:flex-row">
-          <span>© {new Date().getFullYear()} Bizflow Lite</span>
-          <span className="flex items-center gap-2">
-            <span className="h-1 w-1 rounded-full bg-muted-foreground/40" />
-            Simple • Professional • Fast
-          </span>
+        {/* Footer (improved) */}
+        <footer className="mt-14">
+          <div className="relative overflow-hidden rounded-3xl border bg-background/70 shadow-sm backdrop-blur">
+            <div className="pointer-events-none absolute -left-16 -top-16 h-48 w-48 rounded-full bg-primary/10 blur-3xl" />
+            <div className="pointer-events-none absolute -bottom-20 -right-16 h-56 w-56 rounded-full bg-primary/10 blur-3xl" />
+
+            <div className="grid gap-10 p-8 md:grid-cols-3">
+              {/* Brand */}
+              <div className="space-y-3">
+                <div className="flex items-center gap-2">
+                  <div className="flex h-10 w-10 items-center justify-center rounded-2xl bg-primary text-primary-foreground">
+                    <Sparkles className="h-5 w-5" />
+                  </div>
+                  <div className="leading-tight">
+                    <div className="font-semibold tracking-tight">Bizflow Lite</div>
+                    <div className="text-xs text-muted-foreground">
+                      Simple business tracking
+                    </div>
+                  </div>
+                </div>
+
+                <p className="text-sm text-muted-foreground">
+                  Customers, invoices, expenses, and monthly profit — in a clean, fast UI.
+                </p>
+
+                <div className="flex flex-wrap gap-2">
+                  <Badge variant="secondary" className="rounded-full">
+                    Simple
+                  </Badge>
+                  <Badge variant="secondary" className="rounded-full">
+                    Professional
+                  </Badge>
+                  <Badge variant="secondary" className="rounded-full">
+                    Fast
+                  </Badge>
+                </div>
+              </div>
+
+              {/* Links */}
+              <div className="grid gap-2 text-sm">
+                <div className="text-xs font-medium uppercase tracking-wider text-muted-foreground">
+                  Quick links
+                </div>
+                <Link
+                  href="/register"
+                  className="w-fit text-muted-foreground hover:text-foreground underline-offset-4 hover:underline"
+                >
+                  Create account
+                </Link>
+                <Link
+                  href="/login"
+                  className="w-fit text-muted-foreground hover:text-foreground underline-offset-4 hover:underline"
+                >
+                  Login
+                </Link>
+                <Link
+                  href="/"
+                  className="w-fit text-muted-foreground hover:text-foreground underline-offset-4 hover:underline"
+                >
+                  Home
+                </Link>
+              </div>
+
+              {/* Contact */}
+              <div className="grid gap-3 text-sm">
+                <div className="text-xs font-medium uppercase tracking-wider text-muted-foreground">
+                  Contact
+                </div>
+                <div className="flex items-center gap-2 text-muted-foreground">
+                  <Mail className="h-4 w-4" />
+                  <span>support@bizflow-lite.local</span>
+                </div>
+
+                <div className="flex items-center gap-3 pt-1">
+                  <span className="inline-flex items-center gap-2 rounded-xl border bg-background px-3 py-2 text-xs text-muted-foreground">
+                    <Globe className="h-4 w-4" />
+                    Built for small businesses
+                  </span>
+                </div>
+
+                <div className="flex items-center gap-2 pt-1 text-muted-foreground">
+                  <Github className="h-4 w-4" />
+                  <span className="text-xs">Private repo</span>
+                </div>
+              </div>
+            </div>
+
+            <div className="flex flex-col gap-3 border-t px-8 py-5 text-xs text-muted-foreground sm:flex-row sm:items-center sm:justify-between">
+              <span>© {new Date().getFullYear()} Bizflow Lite. All rights reserved.</span>
+              <span className="flex items-center gap-2">
+                <span className="h-1 w-1 rounded-full bg-muted-foreground/40" />
+                Built with Next.js • ShadCN UI
+              </span>
+            </div>
+          </div>
         </footer>
       </main>
     </div>
