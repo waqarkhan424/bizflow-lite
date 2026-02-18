@@ -13,29 +13,43 @@ import {
   ShieldCheck,
   Sparkles,
   Mail,
-  Github,
   Globe,
+  CheckCircle2,
+  Zap,
+  Lock,
 } from "lucide-react";
 
 function FeatureCard({
   icon: Icon,
   title,
   desc,
+  bullets,
 }: {
   icon: React.ElementType;
   title: string;
   desc: string;
+  bullets: string[];
 }) {
   return (
-    <Card className="rounded-2xl shadow-sm">
+    <Card className="group rounded-3xl border bg-background/70 shadow-sm backdrop-blur transition hover:-translate-y-0.5 hover:shadow-md">
       <CardContent className="p-6">
         <div className="flex items-start gap-4">
-          <div className="flex h-10 w-10 items-center justify-center rounded-xl bg-primary/10">
+          <div className="flex h-11 w-11 items-center justify-center rounded-2xl bg-primary/10 ring-1 ring-primary/10">
             <Icon className="h-5 w-5 text-primary" />
           </div>
-          <div className="space-y-1">
-            <h3 className="font-semibold leading-none">{title}</h3>
-            <p className="text-sm text-muted-foreground">{desc}</p>
+
+          <div className="min-w-0 flex-1">
+            <h3 className="text-base font-semibold leading-none">{title}</h3>
+            <p className="mt-2 text-sm text-muted-foreground">{desc}</p>
+
+            <ul className="mt-4 space-y-2 text-sm text-muted-foreground">
+              {bullets.map((b) => (
+                <li key={b} className="flex items-start gap-2">
+                  <CheckCircle2 className="mt-0.5 h-4 w-4 text-primary" />
+                  <span className="leading-relaxed">{b}</span>
+                </li>
+              ))}
+            </ul>
           </div>
         </div>
       </CardContent>
@@ -47,20 +61,36 @@ function Step({
   no,
   title,
   desc,
+  icon: Icon,
 }: {
   no: string;
   title: string;
   desc: string;
+  icon: React.ElementType;
 }) {
   return (
-    <div className="rounded-2xl border bg-background p-6">
-      <div className="flex items-center gap-3">
-        <div className="flex h-9 w-9 items-center justify-center rounded-xl bg-primary/10 text-sm font-semibold text-primary">
+    <div className="relative overflow-hidden rounded-3xl border bg-background/70 p-6 shadow-sm backdrop-blur">
+      <div className="pointer-events-none absolute -right-10 -top-10 h-32 w-32 rounded-full bg-primary/10 blur-2xl" />
+
+      <div className="flex items-start justify-between gap-4">
+        <div className="flex items-center gap-3">
+          <div className="flex h-10 w-10 items-center justify-center rounded-2xl bg-primary/10 ring-1 ring-primary/10">
+            <Icon className="h-5 w-5 text-primary" />
+          </div>
+          <div>
+            <div className="text-xs font-medium uppercase tracking-wider text-muted-foreground">
+              Step {no}
+            </div>
+            <h4 className="text-base font-semibold">{title}</h4>
+          </div>
+        </div>
+
+        <div className="flex h-9 w-9 items-center justify-center rounded-2xl border bg-background text-sm font-semibold">
           {no}
         </div>
-        <h4 className="font-semibold">{title}</h4>
       </div>
-      <p className="mt-3 text-sm text-muted-foreground">{desc}</p>
+
+      <p className="mt-4 text-sm leading-relaxed text-muted-foreground">{desc}</p>
     </div>
   );
 }
@@ -207,57 +237,86 @@ export default function Landing() {
           </div>
         </div>
 
-        {/* Features */}
-        <section className="mt-14">
-          <div className="mb-6">
-            <h2 className="text-2xl font-semibold tracking-tight">Everything you need</h2>
-            <p className="mt-1 text-sm text-muted-foreground">
-              Clean modules that match your app: Customers, Invoices, Expenses, Reports.
-            </p>
+        {/* Features (improved) */}
+        <section className="mt-16">
+          <div className="mb-8 flex flex-col gap-3 sm:flex-row sm:items-end sm:justify-between">
+            <div>
+              <div className="inline-flex items-center gap-2 rounded-full border bg-background/70 px-3 py-1 text-xs text-muted-foreground">
+                <Zap className="h-3.5 w-3.5 text-primary" />
+                Core modules
+              </div>
+              <h2 className="mt-3 text-2xl font-semibold tracking-tight sm:text-3xl">
+                Everything you need
+              </h2>
+              <p className="mt-2 max-w-2xl text-sm text-muted-foreground">
+                Four focused modules that cover the daily work of a small business — no
+                noise, no complexity.
+              </p>
+            </div>
+
+            <div className="flex items-center gap-2 text-xs text-muted-foreground">
+              <Lock className="h-4 w-4 text-primary" />
+              Private by default • Your data stays yours
+            </div>
           </div>
 
-          <div className="grid gap-4 md:grid-cols-2">
+          <div className="grid gap-4 lg:grid-cols-2">
             <FeatureCard
               icon={Users}
               title="Customers"
-              desc="Keep your customer list organized with search and pagination."
+              desc="A clean CRM for your daily workflow."
+              bullets={["Add, edit, delete with confirmations", "Search + pagination", "Customer details at a glance"]}
             />
             <FeatureCard
               icon={Receipt}
               title="Invoices"
-              desc="Create invoices, track status, and keep billing consistent."
+              desc="Simple invoices that look consistent."
+              bullets={["Invoice numbering (INV-0001 style)", "Draft / Paid / Unpaid status", "Quick customer selection"]}
             />
             <FeatureCard
               icon={Wallet}
               title="Expenses"
-              desc="Record spending with date, category, and notes."
+              desc="Track spending without friction."
+              bullets={["Add amount, date, note (and category if needed)", "Monthly filtering", "Fast edits + delete confirm"]}
             />
             <FeatureCard
               icon={BarChart3}
               title="Reports"
-              desc="See monthly performance: income, expenses, profit."
+              desc="Monthly performance, instantly."
+              bullets={["Income, expenses, profit", "Quick month switching", "Export later when needed"]}
             />
           </div>
         </section>
 
-        {/* How it works */}
-        <section className="mt-14">
-          <h2 className="text-2xl font-semibold tracking-tight">How it works</h2>
-          <p className="mt-1 text-sm text-muted-foreground">
-            Start in minutes. No heavy setup.
-          </p>
+        {/* How it works (improved) */}
+        <section className="mt-16">
+          <div className="mb-8">
+            <h2 className="text-2xl font-semibold tracking-tight sm:text-3xl">
+              How it works
+            </h2>
+            <p className="mt-2 max-w-2xl text-sm text-muted-foreground">
+              A smooth 3-step flow that matches how you actually work.
+            </p>
+          </div>
 
-          <div className="mt-6 grid gap-4 md:grid-cols-3">
-            <Step no="1" title="Create account" desc="Sign up and login from your device." />
+          <div className="grid gap-4 md:grid-cols-3">
+            <Step
+              no="1"
+              icon={Sparkles}
+              title="Create your account"
+              desc="Register and login. Your account is protected and ready for your business setup."
+            />
             <Step
               no="2"
-              title="Add business"
-              desc="Set your business name, phone, address, and invoice note."
+              icon={Users}
+              title="Complete business setup"
+              desc="Add your business name, phone, address, and invoice footer note once — then you’re ready."
             />
             <Step
               no="3"
-              title="Track & view reports"
-              desc="Add customers, invoices, expenses — then see monthly profit."
+              icon={BarChart3}
+              title="Track and view profit"
+              desc="Add customers, invoices, and expenses. Reports will show income, expenses, and profit by month."
             />
           </div>
         </section>
@@ -288,7 +347,7 @@ export default function Landing() {
           </div>
         </section>
 
-        {/* Footer (improved) */}
+        {/* Footer (adjusted: removed "Private repo" + removed "Built with Next.js • ShadCN UI") */}
         <footer className="mt-14">
           <div className="relative overflow-hidden rounded-3xl border bg-background/70 shadow-sm backdrop-blur">
             <div className="pointer-events-none absolute -left-16 -top-16 h-48 w-48 rounded-full bg-primary/10 blur-3xl" />
@@ -367,20 +426,12 @@ export default function Landing() {
                     Built for small businesses
                   </span>
                 </div>
-
-                <div className="flex items-center gap-2 pt-1 text-muted-foreground">
-                  <Github className="h-4 w-4" />
-                  <span className="text-xs">Private repo</span>
-                </div>
               </div>
             </div>
 
             <div className="flex flex-col gap-3 border-t px-8 py-5 text-xs text-muted-foreground sm:flex-row sm:items-center sm:justify-between">
               <span>© {new Date().getFullYear()} Bizflow Lite. All rights reserved.</span>
-              <span className="flex items-center gap-2">
-                <span className="h-1 w-1 rounded-full bg-muted-foreground/40" />
-                Built with Next.js • ShadCN UI
-              </span>
+              <span className="text-xs">Made to keep business simple.</span>
             </div>
           </div>
         </footer>
