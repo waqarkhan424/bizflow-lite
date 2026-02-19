@@ -15,13 +15,21 @@ import {
   Sparkles,
   Mail,
   Globe,
-  CheckCircle2,
   Zap,
   Lock,
   Dot,
 } from "lucide-react";
 
-function FeatureCard({
+
+
+
+
+
+
+
+
+
+function FeatureBlock({
   icon: Icon,
   title,
   desc,
@@ -33,31 +41,36 @@ function FeatureCard({
   bullets: string[];
 }) {
   return (
-    <Card className="group rounded-3xl border bg-background/70 shadow-sm backdrop-blur transition hover:-translate-y-0.5 hover:shadow-md">
-      <CardContent className="p-6">
-        <div className="flex items-start gap-4">
-          <div className="flex h-11 w-11 items-center justify-center rounded-2xl bg-primary/10 ring-1 ring-primary/10">
-            <Icon className="h-5 w-5 text-primary" />
-          </div>
-
-          <div className="min-w-0 flex-1">
-            <h3 className="text-base font-semibold leading-none">{title}</h3>
-            <p className="mt-2 text-sm text-muted-foreground">{desc}</p>
-
-            <ul className="mt-4 space-y-2 text-sm text-muted-foreground">
-              {bullets.map((b) => (
-                <li key={b} className="flex items-start gap-2">
-                  <CheckCircle2 className="mt-0.5 h-4 w-4 text-primary" />
-                  <span className="leading-relaxed">{b}</span>
-                </li>
-              ))}
-            </ul>
-          </div>
+    <div className="group rounded-2xl p-3 sm:p-4 transition hover:bg-muted/30">
+      <div className="flex items-start gap-4">
+        <div className="flex h-11 w-11 items-center justify-center rounded-2xl bg-primary/10">
+          <Icon className="h-5 w-5 text-primary" />
         </div>
-      </CardContent>
-    </Card>
+
+        <div className="min-w-0 flex-1">
+          <h3 className="text-base font-semibold leading-none">{title}</h3>
+          <p className="mt-2 text-sm text-muted-foreground">{desc}</p>
+
+          <ul className="mt-4 space-y-2 text-sm text-muted-foreground">
+            {bullets.map((b) => (
+              <li key={b} className="flex items-start gap-2">
+                <span className="mt-2 h-1.5 w-1.5 shrink-0 rounded-full bg-primary/70" />
+                <span className="leading-relaxed">{b}</span>
+              </li>
+            ))}
+          </ul>
+        </div>
+      </div>
+    </div>
   );
 }
+
+
+
+
+
+
+
 
 function HowItem({
   no,
@@ -238,71 +251,94 @@ export default function Landing() {
         </div>
 
         {/* Features (NO card wrapper now) */}
-        <section className="mt-16">
-          <div className="mb-8 flex flex-col gap-3 sm:flex-row sm:items-end sm:justify-between">
-            <div>
-              <div className="inline-flex items-center gap-2 rounded-full border bg-background/70 px-3 py-1 text-xs text-muted-foreground">
-                <Zap className="h-3.5 w-3.5 text-primary" />
-                Core modules
-              </div>
-              <h2 className="mt-3 text-2xl font-semibold tracking-tight sm:text-3xl">
-                Everything you need
-              </h2>
-              <p className="mt-2 max-w-2xl text-sm text-muted-foreground">
-                Four focused modules that cover the daily work of a small business — no
-                noise, no complexity.
-              </p>
-            </div>
+     
 
-            <div className="flex items-center gap-2 text-xs text-muted-foreground">
-              <Lock className="h-4 w-4 text-primary" />
-              Private by default • Your data stays yours
-            </div>
-          </div>
 
-          <div className="grid gap-4 lg:grid-cols-2">
-            <FeatureCard
-              icon={Users}
-              title="Customers"
-              desc="A clean CRM for your daily workflow."
-              bullets={[
-                "Add, edit, delete with confirmations",
-                "Search + pagination",
-                "Customer details at a glance",
-              ]}
-            />
-            <FeatureCard
-              icon={Receipt}
-              title="Invoices"
-              desc="Simple invoices that look consistent."
-              bullets={[
-                "Invoice numbering (INV-0001 style)",
-                "Draft / Paid / Unpaid status",
-                "Quick customer selection",
-              ]}
-            />
-            <FeatureCard
-              icon={Wallet}
-              title="Expenses"
-              desc="Track spending without friction."
-              bullets={[
-                "Add amount, date, note (and category if needed)",
-                "Monthly filtering",
-                "Fast edits + delete confirm",
-              ]}
-            />
-            <FeatureCard
-              icon={BarChart3}
-              title="Reports"
-              desc="Monthly performance, instantly."
-              bullets={[
-                "Income, expenses, profit",
-                "Quick month switching",
-                "Export later when needed",
-              ]}
-            />
-          </div>
-        </section>
+
+<section className="mt-16">
+  <div className="mb-8 flex flex-col gap-3 sm:flex-row sm:items-end sm:justify-between">
+    <div>
+      <div className="inline-flex items-center gap-2 rounded-full border bg-background/70 px-3 py-1 text-xs text-muted-foreground">
+        <Zap className="h-3.5 w-3.5 text-primary" />
+        Core modules
+      </div>
+      <h2 className="mt-3 text-2xl font-semibold tracking-tight sm:text-3xl">
+        Everything you need
+      </h2>
+      <p className="mt-2 max-w-2xl text-sm text-muted-foreground">
+        Four focused modules that cover the daily work of a small business — no noise,
+        no complexity.
+      </p>
+    </div>
+
+    <div className="flex items-center gap-2 text-xs text-muted-foreground">
+      <Lock className="h-4 w-4 text-primary" />
+      Private by default • Your data stays yours
+    </div>
+  </div>
+
+  {/* NO cards, NO borders */}
+  <div className="grid gap-10 lg:grid-cols-2">
+    <FeatureBlock
+      icon={Users}
+      title="Customers"
+      desc="A clean CRM for your daily workflow."
+      bullets={[
+        "Add, edit, delete with confirmations",
+        "Search + pagination",
+        "Customer details at a glance",
+      ]}
+    />
+
+    <FeatureBlock
+      icon={Receipt}
+      title="Invoices"
+      desc="Simple invoices that look consistent."
+      bullets={[
+        "Invoice numbering (INV-0001 style)",
+        "Draft / Paid / Unpaid status",
+        "Quick customer selection",
+      ]}
+    />
+
+    <FeatureBlock
+      icon={Wallet}
+      title="Expenses"
+      desc="Track spending without friction."
+      bullets={[
+        "Add amount, date, note (and category if needed)",
+        "Monthly filtering",
+        "Fast edits + delete confirm",
+      ]}
+    />
+
+    <FeatureBlock
+      icon={BarChart3}
+      title="Reports"
+      desc="Monthly performance, instantly."
+      bullets={[
+        "Income, expenses, profit",
+        "Quick month switching",
+        "Export later when needed",
+      ]}
+    />
+  </div>
+</section>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
         {/* How it works (NO step cards now) */}
         <section className="mt-16">
