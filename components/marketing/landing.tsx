@@ -1,3 +1,4 @@
+// FILE: app/page.tsx
 
 import type React from "react";
 import Link from "next/link";
@@ -18,15 +19,6 @@ import {
   Zap,
   Lock,
 } from "lucide-react";
-
-
-
-
-
-
-
-
-
 
 function FeatureBlock({
   icon: Icon,
@@ -64,11 +56,6 @@ function FeatureBlock({
   );
 }
 
-
-
-
-
-
 function StepBlock({
   no,
   icon: Icon,
@@ -98,16 +85,6 @@ function StepBlock({
     </div>
   );
 }
-
-
-
-
-
-
-
-
-
-
 
 export default function Landing() {
   return (
@@ -251,150 +228,124 @@ export default function Landing() {
           </div>
         </div>
 
-        {/* Features (NO card wrapper now) */}
-     
-
-
-
-<section className="mt-16">
-  <div className="mb-8 flex flex-col gap-3 sm:flex-row sm:items-end sm:justify-between">
-    <div>
-      <div className="inline-flex items-center gap-2 rounded-full border bg-background/70 px-3 py-1 text-xs text-muted-foreground">
-        <Zap className="h-3.5 w-3.5 text-primary" />
-        Core modules
-      </div>
-      <h2 className="mt-3 text-2xl font-semibold tracking-tight sm:text-3xl">
-        Everything you need
-      </h2>
-      <p className="mt-2 max-w-2xl text-sm text-muted-foreground">
-        Four focused modules that cover the daily work of a small business — no noise,
-        no complexity.
-      </p>
-    </div>
-
-    <div className="flex items-center gap-2 text-xs text-muted-foreground">
-      <Lock className="h-4 w-4 text-primary" />
-      Private by default • Your data stays yours
-    </div>
-  </div>
-
-  {/* NO cards, NO borders */}
-  <div className="grid gap-10 lg:grid-cols-2">
-    <FeatureBlock
-      icon={Users}
-      title="Customers"
-      desc="A clean CRM for your daily workflow."
-      bullets={[
-        "Add, edit, delete with confirmations",
-        "Search + pagination",
-        "Customer details at a glance",
-      ]}
-    />
-
-    <FeatureBlock
-      icon={Receipt}
-      title="Invoices"
-      desc="Simple invoices that look consistent."
-      bullets={[
-        "Invoice numbering (INV-0001 style)",
-        "Draft / Paid / Unpaid status",
-        "Quick customer selection",
-      ]}
-    />
-
-    <FeatureBlock
-      icon={Wallet}
-      title="Expenses"
-      desc="Track spending without friction."
-      bullets={[
-        "Add amount, date, note (and category if needed)",
-        "Monthly filtering",
-        "Fast edits + delete confirm",
-      ]}
-    />
-
-    <FeatureBlock
-      icon={BarChart3}
-      title="Reports"
-      desc="Monthly performance, instantly."
-      bullets={[
-        "Income, expenses, profit",
-        "Quick month switching",
-        "Export later when needed",
-      ]}
-    />
-  </div>
-</section>
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-        {/* How it works (NO step cards now) */}
-    
-
-
-<section className="mt-16">
-  <div className="mb-8">
-    <h2 className="text-2xl font-semibold tracking-tight sm:text-3xl">How it works</h2>
-    <p className="mt-2 max-w-2xl text-sm text-muted-foreground">
-      A smooth 3-step flow that matches how you actually work.
-    </p>
-  </div>
-
-  {/* NO cards, NO borders — same vibe as features */}
-  <div className="grid gap-10 lg:grid-cols-2">
-    <StepBlock
-      no="1"
-      icon={Sparkles}
-      title="Create your account"
-      desc="Register and login. Your account is protected and ready for your business setup."
-    />
-
-    <StepBlock
-      no="2"
-      icon={Users}
-      title="Complete business setup"
-      desc="Add your business name, phone, address, and invoice footer note once — then you’re ready."
-    />
-
-    <StepBlock
-      no="3"
-      icon={BarChart3}
-      title="Track and view profit"
-      desc="Add customers, invoices, and expenses. Reports will show income, expenses, and profit by month."
-    />
-  </div>
-</section>
-
-
-
-
-
-        {/* CTA (NO card wrapper now) */}
+        {/* Everything you need */}
         <section className="mt-16">
-          <div className="rounded-3xl border bg-gradient-to-br from-primary/10 via-background to-background p-8">
-            <div className="flex flex-col gap-6 md:flex-row md:items-center md:justify-between">
-              <div>
-                <h3 className="text-2xl font-semibold tracking-tight">
+          <div className="mb-8 flex flex-col gap-3 sm:flex-row sm:items-end sm:justify-between">
+            <div>
+              <div className="inline-flex items-center gap-2 rounded-full border bg-background/70 px-3 py-1 text-xs text-muted-foreground">
+                <Zap className="h-3.5 w-3.5 text-primary" />
+                Core modules
+              </div>
+              <h2 className="mt-3 text-2xl font-semibold tracking-tight sm:text-3xl">
+                Everything you need
+              </h2>
+              <p className="mt-2 max-w-2xl text-sm text-muted-foreground">
+                Four focused modules that cover the daily work of a small business — no
+                noise, no complexity.
+              </p>
+            </div>
+
+            <div className="flex items-center gap-2 text-xs text-muted-foreground">
+              <Lock className="h-4 w-4 text-primary" />
+              Private by default • Your data stays yours
+            </div>
+          </div>
+
+          <div className="grid gap-10 lg:grid-cols-2">
+            <FeatureBlock
+              icon={Users}
+              title="Customers"
+              desc="A clean CRM for your daily workflow."
+              bullets={[
+                "Add, edit, delete with confirmations",
+                "Search + pagination",
+                "Customer details at a glance",
+              ]}
+            />
+            <FeatureBlock
+              icon={Receipt}
+              title="Invoices"
+              desc="Simple invoices that look consistent."
+              bullets={[
+                "Invoice numbering (INV-0001 style)",
+                "Draft / Paid / Unpaid status",
+                "Quick customer selection",
+              ]}
+            />
+            <FeatureBlock
+              icon={Wallet}
+              title="Expenses"
+              desc="Track spending without friction."
+              bullets={[
+                "Add amount, date, note (and category if needed)",
+                "Monthly filtering",
+                "Fast edits + delete confirm",
+              ]}
+            />
+            <FeatureBlock
+              icon={BarChart3}
+              title="Reports"
+              desc="Monthly performance, instantly."
+              bullets={[
+                "Income, expenses, profit",
+                "Quick month switching",
+                "Export later when needed",
+              ]}
+            />
+          </div>
+        </section>
+
+        {/* How it works */}
+        <section className="mt-16">
+          <div className="mb-8">
+            <h2 className="text-2xl font-semibold tracking-tight sm:text-3xl">
+              How it works
+            </h2>
+            <p className="mt-2 max-w-2xl text-sm text-muted-foreground">
+              A smooth 3-step flow that matches how you actually work.
+            </p>
+          </div>
+
+          <div className="grid gap-10 lg:grid-cols-2">
+            <StepBlock
+              no="1"
+              icon={Sparkles}
+              title="Create your account"
+              desc="Register and login. Your account is protected and ready for your business setup."
+            />
+            <StepBlock
+              no="2"
+              icon={Users}
+              title="Complete business setup"
+              desc="Add your business name, phone, address, and invoice footer note once — then you’re ready."
+            />
+            <StepBlock
+              no="3"
+              icon={BarChart3}
+              title="Track and view profit"
+              desc="Add customers, invoices, and expenses. Reports will show income, expenses, and profit by month."
+            />
+          </div>
+        </section>
+
+        {/* CTA (same style: NO card, NO border) */}
+        <section className="mt-16">
+          <div className="rounded-2xl p-3 sm:p-4 transition hover:bg-muted/30">
+            <div className="flex flex-col gap-4 md:flex-row md:items-center md:justify-between">
+              <div className="min-w-0">
+                <div className="inline-flex items-center gap-2 text-xs text-muted-foreground">
+                  <span className="h-1.5 w-1.5 rounded-full bg-primary/70" />
+                  Get started in minutes
+                </div>
+                <h3 className="mt-2 text-2xl font-semibold tracking-tight">
                   Ready to build your business flow?
                 </h3>
                 <p className="mt-1 text-sm text-muted-foreground">
                   Create your account and start tracking today.
                 </p>
               </div>
-              <div className="flex gap-3">
+
+              <div className="flex flex-col gap-3 sm:flex-row">
                 <Button asChild size="lg" className="rounded-2xl">
                   <Link href="/register">
                     Get started <ArrowRight className="ml-2 h-4 w-4" />
@@ -408,7 +359,7 @@ export default function Landing() {
           </div>
         </section>
 
-        {/* Footer (NO big card now) */}
+        {/* Footer */}
         <footer className="mt-16 border-t">
           <div className="mx-auto w-full max-w-6xl px-4 py-12">
             <div className="grid gap-10 md:grid-cols-3">
