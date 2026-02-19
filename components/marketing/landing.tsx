@@ -17,7 +17,6 @@ import {
   Globe,
   Zap,
   Lock,
-  Dot,
 } from "lucide-react";
 
 
@@ -70,43 +69,45 @@ function FeatureBlock({
 
 
 
-
-
-function HowItem({
+function StepBlock({
   no,
+  icon: Icon,
   title,
   desc,
-  icon: Icon,
 }: {
   no: string;
+  icon: React.ElementType;
   title: string;
   desc: string;
-  icon: React.ElementType;
 }) {
   return (
-    <div className="flex gap-4">
-      <div className="flex flex-col items-center">
-        <div className="flex h-11 w-11 items-center justify-center rounded-2xl bg-primary/10 ring-1 ring-primary/10">
+    <div className="group rounded-2xl p-3 sm:p-4 transition hover:bg-muted/30">
+      <div className="flex items-start gap-4">
+        <div className="flex h-11 w-11 items-center justify-center rounded-2xl bg-primary/10">
           <Icon className="h-5 w-5 text-primary" />
         </div>
-        <div className="mt-3 h-full w-px bg-border" />
-      </div>
 
-      <div className="pb-8">
-        <div className="flex items-center gap-2">
-          <span className="text-xs font-medium uppercase tracking-wider text-muted-foreground">
+        <div className="min-w-0 flex-1">
+          <div className="text-xs font-medium uppercase tracking-wider text-muted-foreground">
             Step {no}
-          </span>
-          <span className="text-muted-foreground">•</span>
-          <span className="text-sm font-semibold">{title}</span>
+          </div>
+          <h3 className="mt-1 text-base font-semibold leading-none">{title}</h3>
+          <p className="mt-2 text-sm leading-relaxed text-muted-foreground">{desc}</p>
         </div>
-        <p className="mt-2 max-w-xl text-sm leading-relaxed text-muted-foreground">
-          {desc}
-        </p>
       </div>
     </div>
   );
 }
+
+
+
+
+
+
+
+
+
+
 
 export default function Landing() {
   return (
@@ -341,75 +342,45 @@ export default function Landing() {
 
 
         {/* How it works (NO step cards now) */}
-        <section className="mt-16">
-          <div className="mb-6">
-            <h2 className="text-2xl font-semibold tracking-tight sm:text-3xl">
-              How it works
-            </h2>
-            <p className="mt-2 max-w-2xl text-sm text-muted-foreground">
-              A smooth 3-step flow that matches how you actually work.
-            </p>
-          </div>
+    
 
-          <div className="grid gap-8 md:grid-cols-2">
-            <div className="rounded-3xl border bg-background/60 p-6 backdrop-blur">
-              <HowItem
-                no="1"
-                icon={Sparkles}
-                title="Create your account"
-                desc="Register and login. Your account is protected and ready for your business setup."
-              />
-              <HowItem
-                no="2"
-                icon={Users}
-                title="Complete business setup"
-                desc="Add your business name, phone, address, and invoice footer note once — then you’re ready."
-              />
-              <div className="flex gap-4">
-                <div className="flex flex-col items-center">
-                  <div className="flex h-11 w-11 items-center justify-center rounded-2xl bg-primary/10 ring-1 ring-primary/10">
-                    <BarChart3 className="h-5 w-5 text-primary" />
-                  </div>
-                </div>
-                <div>
-                  <div className="flex items-center gap-2">
-                    <span className="text-xs font-medium uppercase tracking-wider text-muted-foreground">
-                      Step 3
-                    </span>
-                    <span className="text-muted-foreground">•</span>
-                    <span className="text-sm font-semibold">Track and view profit</span>
-                  </div>
-                  <p className="mt-2 max-w-xl text-sm leading-relaxed text-muted-foreground">
-                    Add customers, invoices, and expenses. Reports will show income, expenses,
-                    and profit by month.
-                  </p>
-                </div>
-              </div>
-            </div>
 
-            {/* Right: tiny “rules” list (simple, not cardy) */}
-            <div className="rounded-3xl border bg-background/60 p-6 backdrop-blur">
-              <h3 className="text-base font-semibold">Designed for daily work</h3>
-              <p className="mt-2 text-sm text-muted-foreground">
-                The app stays out of your way and keeps things consistent.
-              </p>
+<section className="mt-16">
+  <div className="mb-8">
+    <h2 className="text-2xl font-semibold tracking-tight sm:text-3xl">How it works</h2>
+    <p className="mt-2 max-w-2xl text-sm text-muted-foreground">
+      A smooth 3-step flow that matches how you actually work.
+    </p>
+  </div>
 
-              <ul className="mt-5 space-y-3 text-sm text-muted-foreground">
-                {[
-                  "Clean screens with clear actions",
-                  "Confirmations on destructive changes",
-                  "Fast search and simple filters",
-                  "Reports that match your month-to-month habits",
-                ].map((t) => (
-                  <li key={t} className="flex items-start gap-2">
-                    <Dot className="mt-1 h-5 w-5 text-primary" />
-                    <span className="leading-relaxed">{t}</span>
-                  </li>
-                ))}
-              </ul>
-            </div>
-          </div>
-        </section>
+  {/* NO cards, NO borders — same vibe as features */}
+  <div className="grid gap-10 lg:grid-cols-2">
+    <StepBlock
+      no="1"
+      icon={Sparkles}
+      title="Create your account"
+      desc="Register and login. Your account is protected and ready for your business setup."
+    />
+
+    <StepBlock
+      no="2"
+      icon={Users}
+      title="Complete business setup"
+      desc="Add your business name, phone, address, and invoice footer note once — then you’re ready."
+    />
+
+    <StepBlock
+      no="3"
+      icon={BarChart3}
+      title="Track and view profit"
+      desc="Add customers, invoices, and expenses. Reports will show income, expenses, and profit by month."
+    />
+  </div>
+</section>
+
+
+
+
 
         {/* CTA (NO card wrapper now) */}
         <section className="mt-16">
