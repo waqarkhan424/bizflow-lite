@@ -3,7 +3,6 @@
 import type React from "react";
 import Link from "next/link";
 import { Button } from "@/components/ui/button";
-import { Card, CardContent } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
 
 import {
@@ -86,6 +85,48 @@ function StepBlock({
   );
 }
 
+function StatPill({
+  label,
+  value,
+}: {
+  label: string;
+  value: string;
+}) {
+  return (
+    <div className="rounded-2xl bg-background/60 px-4 py-3 backdrop-blur transition group-hover:bg-background/70">
+      <div className="text-xs text-muted-foreground">{label}</div>
+      <div className="mt-1 text-xl font-semibold">{value}</div>
+    </div>
+  );
+}
+
+function RowItem({
+  icon: Icon,
+  title,
+  subtitle,
+  amount,
+}: {
+  icon: React.ElementType;
+  title: string;
+  subtitle: string;
+  amount: string;
+}) {
+  return (
+    <div className="flex items-center justify-between gap-4 rounded-2xl bg-background/60 px-4 py-3 backdrop-blur transition group-hover:bg-background/70">
+      <div className="flex items-center gap-3">
+        <div className="flex h-9 w-9 items-center justify-center rounded-xl bg-primary/10">
+          <Icon className="h-5 w-5 text-primary" />
+        </div>
+        <div className="min-w-0">
+          <div className="truncate text-sm font-medium">{title}</div>
+          <div className="truncate text-xs text-muted-foreground">{subtitle}</div>
+        </div>
+      </div>
+      <div className="shrink-0 text-sm font-semibold">{amount}</div>
+    </div>
+  );
+}
+
 export default function Landing() {
   return (
     <div className="relative min-h-screen overflow-hidden">
@@ -160,71 +201,46 @@ export default function Landing() {
             </div>
           </div>
 
-          {/* Right: Preview Card (keep as card) */}
+          {/* Right: Preview (NO card, NO border) */}
           <div className="relative">
-            <Card className="overflow-hidden rounded-3xl border bg-background/70 shadow-sm backdrop-blur">
-              <CardContent className="p-7">
-                <div className="flex items-start justify-between gap-4">
-                  <div>
-                    <p className="text-sm font-semibold">Monthly snapshot</p>
-                    <p className="mt-1 text-sm text-muted-foreground">
-                      Income, expenses, and profit — at a glance.
-                    </p>
-                  </div>
-                  <Badge variant="secondary" className="rounded-full">
-                    Preview
-                  </Badge>
+            <div className="group rounded-3xl p-3 sm:p-4 transition hover:bg-muted/30">
+              <div className="flex items-start justify-between gap-4">
+                <div>
+                  <p className="text-sm font-semibold">Monthly snapshot</p>
+                  <p className="mt-1 text-sm text-muted-foreground">
+                    Income, expenses, and profit — at a glance.
+                  </p>
                 </div>
 
-                <div className="mt-6 grid gap-3 sm:grid-cols-3">
-                  <div className="rounded-2xl border bg-background p-4">
-                    <div className="text-xs text-muted-foreground">Income</div>
-                    <div className="mt-1 text-xl font-semibold">120,000</div>
-                  </div>
-                  <div className="rounded-2xl border bg-background p-4">
-                    <div className="text-xs text-muted-foreground">Expenses</div>
-                    <div className="mt-1 text-xl font-semibold">45,000</div>
-                  </div>
-                  <div className="rounded-2xl border bg-background p-4">
-                    <div className="text-xs text-muted-foreground">Profit</div>
-                    <div className="mt-1 text-xl font-semibold">75,000</div>
-                  </div>
-                </div>
+                <Badge variant="secondary" className="rounded-full">
+                  Preview
+                </Badge>
+              </div>
 
-                <div className="mt-5 space-y-3">
-                  <div className="flex items-center justify-between rounded-2xl border bg-background p-4">
-                    <div className="flex items-center gap-3">
-                      <div className="flex h-9 w-9 items-center justify-center rounded-xl bg-primary/10">
-                        <Receipt className="h-5 w-5 text-primary" />
-                      </div>
-                      <div>
-                        <div className="text-sm font-medium">Invoice INV-0032</div>
-                        <div className="text-xs text-muted-foreground">Paid • Today</div>
-                      </div>
-                    </div>
-                    <div className="text-sm font-semibold">18,000</div>
-                  </div>
+              <div className="mt-6 grid gap-3 sm:grid-cols-3">
+                <StatPill label="Income" value="120,000" />
+                <StatPill label="Expenses" value="45,000" />
+                <StatPill label="Profit" value="75,000" />
+              </div>
 
-                  <div className="flex items-center justify-between rounded-2xl border bg-background p-4">
-                    <div className="flex items-center gap-3">
-                      <div className="flex h-9 w-9 items-center justify-center rounded-xl bg-primary/10">
-                        <Wallet className="h-5 w-5 text-primary" />
-                      </div>
-                      <div>
-                        <div className="text-sm font-medium">Expense</div>
-                        <div className="text-xs text-muted-foreground">
-                          Transport • Yesterday
-                        </div>
-                      </div>
-                    </div>
-                    <div className="text-sm font-semibold">2,500</div>
-                  </div>
-                </div>
-              </CardContent>
+              <div className="mt-5 space-y-3">
+                <RowItem
+                  icon={Receipt}
+                  title="Invoice INV-0032"
+                  subtitle="Paid • Today"
+                  amount="18,000"
+                />
+                <RowItem
+                  icon={Wallet}
+                  title="Expense"
+                  subtitle="Transport • Yesterday"
+                  amount="2,500"
+                />
+              </div>
+            </div>
 
-              <div className="pointer-events-none absolute -right-10 -top-10 h-40 w-40 rounded-full bg-primary/10 blur-3xl" />
-              <div className="pointer-events-none absolute -bottom-14 -left-10 h-40 w-40 rounded-full bg-primary/10 blur-3xl" />
-            </Card>
+            <div className="pointer-events-none absolute -right-10 -top-10 h-40 w-40 rounded-full bg-primary/10 blur-3xl" />
+            <div className="pointer-events-none absolute -bottom-14 -left-10 h-40 w-40 rounded-full bg-primary/10 blur-3xl" />
           </div>
         </div>
 
@@ -328,7 +344,7 @@ export default function Landing() {
           </div>
         </section>
 
-        {/* CTA (same style: NO card, NO border) */}
+        {/* CTA (NO card, NO border) */}
         <section className="mt-16">
           <div className="rounded-2xl p-3 sm:p-4 transition hover:bg-muted/30">
             <div className="flex flex-col gap-4 md:flex-row md:items-center md:justify-between">
