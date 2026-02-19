@@ -85,13 +85,7 @@ function StepBlock({
   );
 }
 
-function StatPill({
-  label,
-  value,
-}: {
-  label: string;
-  value: string;
-}) {
+function StatPill({ label, value }: { label: string; value: string }) {
   return (
     <div className="rounded-2xl bg-background/60 px-4 py-3 backdrop-blur transition group-hover:bg-background/70">
       <div className="text-xs text-muted-foreground">{label}</div>
@@ -375,8 +369,13 @@ export default function Landing() {
           </div>
         </section>
 
-        {/* Footer */}
-        <footer className="mt-16 border-t">
+        {/* Footer (NO top border) */}
+        <footer className="mt-20">
+          {/* soft separation without a hard border */}
+          <div className="mx-auto w-full max-w-6xl px-4 pt-10">
+            <div className="h-px w-full bg-gradient-to-r from-transparent via-border to-transparent opacity-60" />
+          </div>
+
           <div className="mx-auto w-full max-w-6xl px-4 py-12">
             <div className="grid gap-10 md:grid-cols-3">
               {/* Brand */}
