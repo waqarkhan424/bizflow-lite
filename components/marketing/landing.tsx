@@ -1,3 +1,4 @@
+
 import type React from "react";
 import Link from "next/link";
 import { Button } from "@/components/ui/button";
@@ -17,6 +18,7 @@ import {
   CheckCircle2,
   Zap,
   Lock,
+  Dot,
 } from "lucide-react";
 
 function FeatureCard({
@@ -57,7 +59,7 @@ function FeatureCard({
   );
 }
 
-function Step({
+function HowItem({
   no,
   title,
   desc,
@@ -69,28 +71,26 @@ function Step({
   icon: React.ElementType;
 }) {
   return (
-    <div className="relative overflow-hidden rounded-3xl border bg-background/70 p-6 shadow-sm backdrop-blur">
-      <div className="pointer-events-none absolute -right-10 -top-10 h-32 w-32 rounded-full bg-primary/10 blur-2xl" />
-
-      <div className="flex items-start justify-between gap-4">
-        <div className="flex items-center gap-3">
-          <div className="flex h-10 w-10 items-center justify-center rounded-2xl bg-primary/10 ring-1 ring-primary/10">
-            <Icon className="h-5 w-5 text-primary" />
-          </div>
-          <div>
-            <div className="text-xs font-medium uppercase tracking-wider text-muted-foreground">
-              Step {no}
-            </div>
-            <h4 className="text-base font-semibold">{title}</h4>
-          </div>
+    <div className="flex gap-4">
+      <div className="flex flex-col items-center">
+        <div className="flex h-11 w-11 items-center justify-center rounded-2xl bg-primary/10 ring-1 ring-primary/10">
+          <Icon className="h-5 w-5 text-primary" />
         </div>
-
-        <div className="flex h-9 w-9 items-center justify-center rounded-2xl border bg-background text-sm font-semibold">
-          {no}
-        </div>
+        <div className="mt-3 h-full w-px bg-border" />
       </div>
 
-      <p className="mt-4 text-sm leading-relaxed text-muted-foreground">{desc}</p>
+      <div className="pb-8">
+        <div className="flex items-center gap-2">
+          <span className="text-xs font-medium uppercase tracking-wider text-muted-foreground">
+            Step {no}
+          </span>
+          <span className="text-muted-foreground">•</span>
+          <span className="text-sm font-semibold">{title}</span>
+        </div>
+        <p className="mt-2 max-w-xl text-sm leading-relaxed text-muted-foreground">
+          {desc}
+        </p>
+      </div>
     </div>
   );
 }
@@ -164,12 +164,12 @@ export default function Landing() {
                 Clean reports
               </span>
               <span className="rounded-full border bg-background/70 px-3 py-1">
-                Built with Next.js + ShadCN
+                Private by default
               </span>
             </div>
           </div>
 
-          {/* Right: Preview Card */}
+          {/* Right: Preview Card (keep as card) */}
           <div className="relative">
             <Card className="overflow-hidden rounded-3xl border bg-background/70 shadow-sm backdrop-blur">
               <CardContent className="p-7">
@@ -237,7 +237,7 @@ export default function Landing() {
           </div>
         </div>
 
-        {/* Features (improved) */}
+        {/* Features (NO card wrapper now) */}
         <section className="mt-16">
           <div className="mb-8 flex flex-col gap-3 sm:flex-row sm:items-end sm:justify-between">
             <div>
@@ -265,32 +265,48 @@ export default function Landing() {
               icon={Users}
               title="Customers"
               desc="A clean CRM for your daily workflow."
-              bullets={["Add, edit, delete with confirmations", "Search + pagination", "Customer details at a glance"]}
+              bullets={[
+                "Add, edit, delete with confirmations",
+                "Search + pagination",
+                "Customer details at a glance",
+              ]}
             />
             <FeatureCard
               icon={Receipt}
               title="Invoices"
               desc="Simple invoices that look consistent."
-              bullets={["Invoice numbering (INV-0001 style)", "Draft / Paid / Unpaid status", "Quick customer selection"]}
+              bullets={[
+                "Invoice numbering (INV-0001 style)",
+                "Draft / Paid / Unpaid status",
+                "Quick customer selection",
+              ]}
             />
             <FeatureCard
               icon={Wallet}
               title="Expenses"
               desc="Track spending without friction."
-              bullets={["Add amount, date, note (and category if needed)", "Monthly filtering", "Fast edits + delete confirm"]}
+              bullets={[
+                "Add amount, date, note (and category if needed)",
+                "Monthly filtering",
+                "Fast edits + delete confirm",
+              ]}
             />
             <FeatureCard
               icon={BarChart3}
               title="Reports"
               desc="Monthly performance, instantly."
-              bullets={["Income, expenses, profit", "Quick month switching", "Export later when needed"]}
+              bullets={[
+                "Income, expenses, profit",
+                "Quick month switching",
+                "Export later when needed",
+              ]}
             />
           </div>
         </section>
 
-        {/* How it works (improved) */}
+        {/* How it works (NO step cards now) */}
         <section className="mt-16">
-          <div className="mb-8">
+          <div className="mb-6">
             <h2 className="text-2xl font-semibold tracking-tight sm:text-3xl">
               How it works
             </h2>
@@ -299,31 +315,69 @@ export default function Landing() {
             </p>
           </div>
 
-          <div className="grid gap-4 md:grid-cols-3">
-            <Step
-              no="1"
-              icon={Sparkles}
-              title="Create your account"
-              desc="Register and login. Your account is protected and ready for your business setup."
-            />
-            <Step
-              no="2"
-              icon={Users}
-              title="Complete business setup"
-              desc="Add your business name, phone, address, and invoice footer note once — then you’re ready."
-            />
-            <Step
-              no="3"
-              icon={BarChart3}
-              title="Track and view profit"
-              desc="Add customers, invoices, and expenses. Reports will show income, expenses, and profit by month."
-            />
+          <div className="grid gap-8 md:grid-cols-2">
+            <div className="rounded-3xl border bg-background/60 p-6 backdrop-blur">
+              <HowItem
+                no="1"
+                icon={Sparkles}
+                title="Create your account"
+                desc="Register and login. Your account is protected and ready for your business setup."
+              />
+              <HowItem
+                no="2"
+                icon={Users}
+                title="Complete business setup"
+                desc="Add your business name, phone, address, and invoice footer note once — then you’re ready."
+              />
+              <div className="flex gap-4">
+                <div className="flex flex-col items-center">
+                  <div className="flex h-11 w-11 items-center justify-center rounded-2xl bg-primary/10 ring-1 ring-primary/10">
+                    <BarChart3 className="h-5 w-5 text-primary" />
+                  </div>
+                </div>
+                <div>
+                  <div className="flex items-center gap-2">
+                    <span className="text-xs font-medium uppercase tracking-wider text-muted-foreground">
+                      Step 3
+                    </span>
+                    <span className="text-muted-foreground">•</span>
+                    <span className="text-sm font-semibold">Track and view profit</span>
+                  </div>
+                  <p className="mt-2 max-w-xl text-sm leading-relaxed text-muted-foreground">
+                    Add customers, invoices, and expenses. Reports will show income, expenses,
+                    and profit by month.
+                  </p>
+                </div>
+              </div>
+            </div>
+
+            {/* Right: tiny “rules” list (simple, not cardy) */}
+            <div className="rounded-3xl border bg-background/60 p-6 backdrop-blur">
+              <h3 className="text-base font-semibold">Designed for daily work</h3>
+              <p className="mt-2 text-sm text-muted-foreground">
+                The app stays out of your way and keeps things consistent.
+              </p>
+
+              <ul className="mt-5 space-y-3 text-sm text-muted-foreground">
+                {[
+                  "Clean screens with clear actions",
+                  "Confirmations on destructive changes",
+                  "Fast search and simple filters",
+                  "Reports that match your month-to-month habits",
+                ].map((t) => (
+                  <li key={t} className="flex items-start gap-2">
+                    <Dot className="mt-1 h-5 w-5 text-primary" />
+                    <span className="leading-relaxed">{t}</span>
+                  </li>
+                ))}
+              </ul>
+            </div>
           </div>
         </section>
 
-        {/* CTA */}
-        <section className="mt-14">
-          <div className="rounded-3xl border bg-background/70 p-8 shadow-sm backdrop-blur">
+        {/* CTA (NO card wrapper now) */}
+        <section className="mt-16">
+          <div className="rounded-3xl border bg-gradient-to-br from-primary/10 via-background to-background p-8">
             <div className="flex flex-col gap-6 md:flex-row md:items-center md:justify-between">
               <div>
                 <h3 className="text-2xl font-semibold tracking-tight">
@@ -347,13 +401,10 @@ export default function Landing() {
           </div>
         </section>
 
-        {/* Footer (adjusted: removed "Private repo" + removed "Built with Next.js • ShadCN UI") */}
-        <footer className="mt-14">
-          <div className="relative overflow-hidden rounded-3xl border bg-background/70 shadow-sm backdrop-blur">
-            <div className="pointer-events-none absolute -left-16 -top-16 h-48 w-48 rounded-full bg-primary/10 blur-3xl" />
-            <div className="pointer-events-none absolute -bottom-20 -right-16 h-56 w-56 rounded-full bg-primary/10 blur-3xl" />
-
-            <div className="grid gap-10 p-8 md:grid-cols-3">
+        {/* Footer (NO big card now) */}
+        <footer className="mt-16 border-t">
+          <div className="mx-auto w-full max-w-6xl px-4 py-12">
+            <div className="grid gap-10 md:grid-cols-3">
               {/* Brand */}
               <div className="space-y-3">
                 <div className="flex items-center gap-2">
@@ -429,9 +480,9 @@ export default function Landing() {
               </div>
             </div>
 
-            <div className="flex flex-col gap-3 border-t px-8 py-5 text-xs text-muted-foreground sm:flex-row sm:items-center sm:justify-between">
+            <div className="mt-10 flex flex-col gap-3 text-xs text-muted-foreground sm:flex-row sm:items-center sm:justify-between">
               <span>© {new Date().getFullYear()} Bizflow Lite. All rights reserved.</span>
-              <span className="text-xs">Made to keep business simple.</span>
+              <span>Made to keep business simple.</span>
             </div>
           </div>
         </footer>
